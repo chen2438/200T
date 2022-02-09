@@ -12,48 +12,25 @@ const int INF (1<<30);
 const int inf (-1<<30);
 using namespace std;
 
-inline int IntRead(){
-    char ch=getchar();
-    int s=0,w=1;
-    while(ch<'0' || ch>'9'){
-        if(ch=='-') w=-1;
-        ch=getchar();
-    }
-    while(ch>='0' && ch<='9'){
-        s=s*10+ch-'0',
-        ch=getchar();
-    }
-    return s*w;
-}
+#define ll long long 
+ll n,mod;
 
-inline void IntWrite(int s){
-    int k=0,len=0;
-    if(s==0) putchar('0');
-    while(s){
-        k=k*10+s%10;
-        s/=10,len++;
+ll quick_pow(ll a,ll b){//a^b
+    ll ans=1,base=a;
+    while(b){
+        if(b&1) ans*=base,ans%=mod;
+        base*=base,base%=mod;
+        b>>=1;
     }
-    for(int i=0;i<len;i++){
-        putchar(k%10+'0');
-        k/=10;
-    }
-}
-
-void exgcd(int &x, int &y, int a, int b) {
-    if (!b) x = 1, y = 0;
-    else exgcd(y, x,b, a % b), y -= a / b * x;
+    return ans;
 }
 
 int main(){
-	int _a,b,x,y;
-	_a=IntRead(),b=IntRead();
-    FOR(a,1,_a){
-        x=a,y=b;
-        exgcd(x,y,a,b);
-        x=(x%b+b)%b;//负数回正，大的变小，得到最小正整数解
-        IntWrite(x),putchar('\n');
-        //cout<<x<<endl;
+    cin>>n>>mod;
+    FOR(i,1,n){
+        ll ans=quick_pow(i,mod-2)%mod;
+        printf("%lld\n",ans);
     }
     
-	return 0;
+    return 0;
 }
