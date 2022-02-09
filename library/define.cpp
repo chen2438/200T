@@ -1,0 +1,5 @@
+#define INF ((1<<31)-1)
+#define inf (-1<<31)
+#defien abss(x) ((x)>(0)?(x):(-1)*(x))
+#define maxs(a,b) ((a)>(b)?(a):(b))
+#define mins(a,b) ((a)<(b)?(a):(b))
