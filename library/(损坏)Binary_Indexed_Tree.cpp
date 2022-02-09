@@ -1,4 +1,4 @@
-﻿#include<bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 int sum1[1000],sum2[1000];
 int a[1000];
