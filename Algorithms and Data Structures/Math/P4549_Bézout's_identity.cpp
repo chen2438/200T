@@ -1,4 +1,5 @@
 //#pragma GCC optimize(2)
+//std::ios::sync_with_stdio(0)
 //clock_t st=clock();
 #include<bits/stdc++.h>
 #define abss(x) ((x)>(0)?(x):(-1)*(x))
@@ -11,16 +12,14 @@ const int INF (1<<30);
 const int inf (-1<<30);
 using namespace std;
 
-int main() {
-    //std::ios::sync_with_stdio(0);
+int main(){
     int n;
     cin>>n;
-    int ans=0,tmp;
+    int ans=0,t;
     FOR(i,1,n){
-        //scanf("%d",&tmp);
-        cin>>tmp;
-        tmp=abss(tmp);
-        ans=__gcd(ans,tmp);
+        scanf("%d",&t);
+        t=abss(t);
+        ans=__gcd(ans,t);
     }
     cout<<ans;
 }
