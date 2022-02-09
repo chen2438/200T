@@ -12,25 +12,16 @@ const int INF (1<<30);
 const int inf (-1<<30);
 using namespace std;
 
-#define ll long long 
-ll n,mod;
-
-ll quick_pow(ll a,ll b){//a^b
-    ll ans=1,base=a;
-    while(b){
-        if(b&1) ans*=base,ans%=mod;
-        base*=base,base%=mod;
-        b>>=1;
-    }
-    return ans;
-}
+const int maxn=3e6+7;
+int inv[maxn];
 
 int main(){
-    cin>>n>>mod;
-    FOR(i,1,n){
-        ll ans=quick_pow(i,mod-2)%mod;
-        printf("%lld\n",ans);
+    int n,p;
+    cin>>n>>p;
+    inv[1]=1;
+    cout<<"1\n";
+    FOR(i,2,n){
+        inv[i]=(p-p/i)*inv[p%i]%p;
+        printf("%d\n",inv[i]);
     }
-    
-    return 0;
 }
