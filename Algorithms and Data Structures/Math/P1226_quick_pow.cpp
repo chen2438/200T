@@ -12,22 +12,22 @@ const int INF (1<<30);
 const int inf (-1<<30);
 using namespace std;
 
-void exgcd(int &x,int &y,int a,int b){
-    if(!b){
-        x=1,y=0;
-        return;
+#define ll long long 
+ll btm,idx,mod;
+
+ll quick_pow(ll a,ll b){//a^b
+    ll ans=1,base=a;
+    while(b){
+        if(b&1) ans*=base,ans%=mod;
+        base*=base,base%=mod;
+        b>>=1;
     }
-    exgcd(x,y,b,a%b);
-    int t;
-    t=x,x=y,y=t-a/b*y;
+    return ans;
 }
 
 int main(){
-	int a,b,x,y;
-	cin>>a>>b;
-    x=a,y=b;
-	exgcd(x,y,a,b);
-	x=(x%b+b)%b;//负数回正，大的变小，得到最小正整数解
-    cout<<x;
-	return 0;
+    cin>>btm>>idx>>mod;
+    ll ans=quick_pow(btm,idx)%mod;
+    printf("%lld^%lld mod %lld=%lld",btm,idx,mod,ans);
+    return 0;
 }
