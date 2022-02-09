@@ -1,3 +1,3 @@
 # 200T
 
-For regular training
+For common training
