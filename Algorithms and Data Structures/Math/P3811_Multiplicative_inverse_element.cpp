@@ -21,7 +21,7 @@ int main(){
     inv[1]=1;
     cout<<"1\n";
     FOR(i,2,n){
-        inv[i]=(p-p/i)*inv[p%i]%p;
+        inv[i]=(long long)(p-p/i)*inv[p%i]%p;
         printf("%d\n",inv[i]);
     }
 }
