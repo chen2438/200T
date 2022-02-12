@@ -6,8 +6,7 @@ For common training
 
 200T，即ACM入队200题，梦开始的地方。
 
----
-## $Update$
+## Update
 
 2.11 iPad 编程测试
 
