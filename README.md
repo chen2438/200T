@@ -10,4 +10,4 @@ For common training
 
 2.11 iPad 编程测试
 
-2.12 部分代码与思路来源于[fanfansan](https://github.com/fanfansann)，略有修改。在这里感谢他！
+2.12 部分代码与思路来源于[fanfansann](https://github.com/fanfansann)，略有修改。在这里感谢他！
