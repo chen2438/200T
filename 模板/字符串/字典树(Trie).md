@@ -3,7 +3,9 @@
 #### 字典树写法
 
 [参考1](https://www.luogu.com.cn/blog/_post/31110)
+
 [参考2](https://www.luogu.com.cn/blog/_post/82818)
+
 [bitset用法](https://www.cnblogs.com/zwfymqz/p/8696631.html)
 
 [854ms/45.96MB](https://www.luogu.com.cn/record/69304560)
@@ -27,6 +29,7 @@ void insert(char* s,int rol){
     }
     b[now][rol]=1;//这个单词在第x行出现了
 }
+
 void check(char* s){
 	int len=strlen(s+1);
     int now=0,flag=1;
