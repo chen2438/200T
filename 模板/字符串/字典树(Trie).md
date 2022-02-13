@@ -73,7 +73,7 @@ int main(){
 
 用`STL`可以不必纠结数组开多大以及爆空间，但会更费时
 
-[`2.06s/3.96MB`](https://www.luogu.com.cn/record/69303923)
+[2.06s/3.96MB](https://www.luogu.com.cn/record/69303923)
 
 ```cpp
 #include<bits/stdc++.h>
