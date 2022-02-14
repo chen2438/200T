@@ -4,7 +4,7 @@ For common training
 
 关于名字：
 
-200T，即ACM入队200题，梦开始的地方。
+200T，即 zstu ACM 入队 200 题，梦开始的地方。
 
 ## Update
 
