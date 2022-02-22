@@ -22,6 +22,6 @@ int main(){
     FOR(i,1,cnt)
         ROF(j,m,w[i])
             dp[j]=max(dp[j],dp[j-w[i]]+v[i]);
-    cout<<dp[m];
+    cout<<dp[m]<<endl;
     return 0;
 }
