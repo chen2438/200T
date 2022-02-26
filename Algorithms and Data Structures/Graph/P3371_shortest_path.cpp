@@ -2,55 +2,63 @@
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 using namespace std;
 
-const int maxn=1e4+7;
-const int maxm=5e5+7;
+const int maxn=1e5+7;
+const int maxm=2e5+7;
 const int INF=(1<<30);
 
+int n,m,s;
+int dis[maxn],vst[maxn];
+int head[maxm],adt;
+
 struct Edge{
-    int u,v,w;
+	int to,nxt,w;
+}e[maxm];
+
+void add(int u,int v,int w){
+    e[++adt]={v,head[u],w};
+    head[u]=adt;
+}
+
+struct node{
+    int dis,u;
+    bool operator <(const node &x)const{
+        return x.dis<dis;
+    }
 };
 
-Edge edge[maxm];
-int dist[maxn];//结点到源点最小距离
-int n,m,s;//结点数,边数,源点
-
-// 初始化图
-void init(){
-    FOR(i,1,n)
-        dist[i]=INF;
-    FOR(i,1,m){
-    	int u,v,w;
-    	cin>>u>>v>>w;
-        edge[i]={u,v,w};
-        if(u==s) dist[v]=w;
-    }
-    dist[s]=0;
+void dijkstra(){
+	priority_queue<node> q;
+	q.push({0,s});
+	dis[s]=0;
+	while(!q.empty()){
+		int u=q.top().u;
+		q.pop();
+		if(vst[u]) continue;
+		vst[u]=1;
+		for(int i=head[u];i;i=e[i].nxt){ 
+			int v=e[i].to,w=e[i].w;
+			if(dis[v]>dis[u]+w){
+				dis[v]=dis[u]+w;
+				if(!vst[v]) q.push({dis[v],v});
+			}
+		}
+	}
 }
 
-void relax(int u,int v,int w){
-    if(dist[v]>dist[u]+w) dist[v]=dist[u]+w;
-}
-
-bool Bellman_Ford(){
-    FOR(i,1,n-1)
-        FOR(j,1,m)
-            relax(edge[j].u,edge[j].v,edge[j].w);
-    bool flag=true;
-    FOR(i,1,m)//判断是否有负环路
-        if(dist[edge[i].v]>dist[edge[i].u]+edge[i].w){
-            flag=false;
-            break;
-        }
-    return flag;
-}
 int main(){
 	cin>>n>>m>>s;
-    init();
-    if(Bellman_Ford()){
-        FOR(i,1,n){
-            if(dist[i]!=INF) cout<<dist[i]<<" ";
-            else cout<<INT_MAX<<" ";
-        }
-    }
-    return 0;
+	FOR(i,1,n)
+		dis[i]=INF;
+	dis[s]=0;
+	FOR(i,1,m){
+		int u,v,w;
+		cin>>u>>v>>w;
+		add(u,v,w);
+	}
+	dijkstra();
+	FOR(i,1,n){
+		if(dis[i]!=INF) cout<<dis[i]<<" ";
+		else cout<<INT_MAX<<" ";
+	}
+	return 0;
 }
