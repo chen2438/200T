@@ -1,30 +1,25 @@
-#include "iostream"
-#include "stdio.h"
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define mem(a) memset(a,0,sizeof(a))
+#define maxs(a,b) ((a)>(b)?(a):(b))
+#define scan(a) scanf("%d",&(a))
+#define abss(x) ((x)>(0)?(x):(-1)*(x))
 using namespace std;
-int w[105],val[105];
-int dp[105][1005];
-int main()
-{
-    int t,m,res=-1,tx;
-    cin>>m>>tx>>t;
-    for(int i=1;i<=m;i++)
-    {
-        scanf("%d%d",&w[i],&val[i]);
 
-    }
-    t-=tx;
-    for(int i=1;i<=m;i++) 
-        for(int j=t;j>=0;j--)  
-        {
-            if(j>=w[i])
-            {
-                dp[i][j]=max(dp[i-1][j-w[i]]+val[i],dp[i-1][j]);
-            }  
-            else
-            {
-                dp[i][j]=dp[i-1][j];
-            }              
-        }
-    printf("%d",dp[m][t]);
+const int maxn=1e3+7;
+const int maxm=1e5+7;
+
+set<int> s;
+
+struct node{
+    int x,y;
+};
+
+vector<node> v[maxm];
+
+
+int main(){
+    v[0].push_back({1,2});
+    cout<<v[0].x<<" "<<v[0].y<<'\n';
     return 0;
 }
