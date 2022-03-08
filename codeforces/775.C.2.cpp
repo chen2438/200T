@@ -6,32 +6,20 @@
 #define abss(x) ((x)>(0)?(x):(-1)*(x))
 using namespace std;
 
-const int maxn=1e3+7;
-const int maxm=1e5+7;
-
-set<int> s;
+const int maxn=1e5+7;
 
 struct node{
     int x,y;
+    bool operator< (node &T){
+        return 
+    }
 };
 
-vector<int> v1[maxm];
-vector<int> v2[maxm];
+set<int> s;
+vector<node> v[maxn+1];
 
 long long sum;
-int X,Y,n,m;
-
-int find(int val){
-    int cnt[]=1;
-    FOR(i,1,n){
-        FOR(j,1,m){
-            if(val==a[i][j]){
-                b[cnt++]={i,j};
-            }
-        }
-    }
-    return cnt-1;
-}
+int n,m;
 
 int main(){
     cin>>n>>m;
@@ -39,18 +27,16 @@ int main(){
     FOR(i,1,n){
         FOR(j,1,m){
             scanf("%d",&o);
-            v1[o].push_back(i);
-            v1
-            s.insert(a[i][j]);
+            v[o].push_back({i,j});
+            //s.insert(o);
         }
     }
-    while(!s.empty()){
-        int val=*s.begin();
-        s.erase(s.begin());
-        int cnt=find(val);
-        FOR(i,1,cnt){
-            FOR(j,i+1,cnt){
-                sum+=abss(b[i].x-b[j].x)+abss(b[i].y-b[j].y);
+    FOR(o,1,maxn){
+        if(v[o].empty()) continue;
+        const int _n=v[o].size();
+        FOR(i,0,_n-1){
+            FOR(j,i+1,_n-1){
+                sum+=abss(v[o][i].x-v[o][j].x)+abss(v[o][i].y-v[o][j].y);
             }
         }
     }

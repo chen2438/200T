@@ -1,69 +1,46 @@
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
-#define mem(a) memset(a,0,sizeof(a))
-#define maxs(a,b) ((a)>(b)?(a):(b))
-#define scan(a) scanf("%d",&(a))
-#define abss(x) ((x)>(0)?(x):(-1)*(x))
+#define int long long
 using namespace std;
 
-const int maxn=1e3+7;
-const int maxm=1e5+7;
-set<int> s;
+const int N = 1e5+7;
 
-int a[maxn][maxn];
-long long sum;
-int X,Y,n,m;
-/*
-void dfs(int val,int x,int y){
-	FOR(i,1,n){
-		FOR(j,1,m){
-			if(a[i][j]==val and !vst[i][j]){
-				sum+=abss(x-i)+abss(y-j);
-				vst[i][j]=1;
-				dfs(val,i,j);
-				vst[i][j]=0;
-			}
-		}
-	}
+vector<int> x[N];
+vector<int> y[N];
+int n,m;
+
+void solve(){
+    cin>>n>>m;
+    vector c(n+1,vector<int> (m+1));
+    FOR(i,1,n){
+        FOR(j,1,m){
+            int c;cin>>c;
+            x[c].push_back(i);
+            y[c].push_back(j);
+        }
+    }
+    int res=0;
+    FOR(i,1,1e5){
+    	if(x[i].empty()) continue;
+        int sum=0;
+        sort(x[i].begin(),x[i].end());
+        FOR(j,1,x[i].size()-1){
+            res+=(x[i][j]-x[i][j-1])*j+sum;
+            sum+=(x[i][j]-x[i][j-1])*j;
+        }
+        sum=0;
+        sort(y[i].begin(),y[i].end());
+        for(int j=1;j<y[i].size();j++){
+            res+=(y[i][j]-y[i][j-1])*j+sum;
+            sum+=(y[i][j]-y[i][j-1])*j;
+        }
+    }
+    cout<<res<<"\n";
 }
-*/
-
-struct node{
-	int x,y;
-}b[maxn][maxn];
-
-//vector<vector<int>> vec1(count) ;
-
-int find(int val){
-	int cnt[]=1;
-	FOR(i,1,n){
-		FOR(j,1,m){
-			if(val==a[i][j]){
-				b[cnt++]={i,j};
-			}
-		}
-	}
-	return cnt-1;
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    solve();
 }
-
-int main(){
-	cin>>n>>m;
-	FOR(i,1,n){
-		FOR(j,1,m){
-			scanf("%d",&a[i][j]);
-			s.insert(a[i][j]);
-		}
-	}
-	while(!s.empty()){
-		int val=*s.begin();
-		s.erase(s.begin());
-		int cnt=find(val);
-		FOR(i,1,cnt){
-			FOR(j,i+1,cnt){
-				sum+=abss(b[i].x-b[j].x)+abss(b[i].y-b[j].y);
-			}
-		}
-	}
-	cout<<sum<<'\n';
-	return 0;
-}
+// 2 1 2 3 2 3 2
+// 2
