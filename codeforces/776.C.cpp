@@ -1,112 +1,46 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 using namespace std;
-#define mem(a) memset(a,0,sizeof(a))
-#define scan(a) scanf("%d",&(a))
-#define elif else if
-
-const int maxn=778;
-int matx[maxn][maxn];
-int n,m;
-
-struct node{
-	int a,b,c,d;
-};
-
-bool j1(){
-	FOR(i,1,n){
-		FOR(j,1,m){
-			if(i%2==1){
-				if(j%2==1 and matx[i][j]) return false;
-			}
-			if(i%2==0){
-				if(j%2==0 and matx[i][j]) return false;
-			}
-		}
-	}
-	return true;
+ 
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> a(n, vector<int> (m));
+    FOR(i,0,n-1){
+        string s;
+        cin >> s;
+        for (int j = 0; j < m; ++j)
+            a[i][j] = s[j] - '0';
+    }
+    vector<array<int, 4>> ans;
+    if (a[0][0] == 1) {
+        cout << -1<< '\n';
+        return;
+    }
+    
+    for (int j = m - 1; j >= 0; --j) {
+        for (int i = n - 1; i >= 0; --i) {
+            if (a[i][j]) {
+                if (i != 0) {
+                    ans.push_back({i, j + 1, i + 1, j + 1});
+                } else {
+                    ans.push_back({i + 1, j, i + 1, j + 1});
+                }
+            }
+        }
+    }
+    cout << ans.size() << '\n';
+    for (auto i : ans) {
+        cout << i[0] << ' ' << i[1] << ' ' << i[2] << ' ' << i[3] << '\n';
+    }
 }
-
-int main(){
-	int t;cin>>t;
-	while(t--){
-		char o;
-		cin>>n>>m;
-		mem(matx);
-		FOR(i,1,n){
-			FOR(j,1,m){
-				cin>>o;
-				if(o=='1') matx[i][j]=1;
-				elif(o=='0') matx[i][j]=0;
-			}
-		}
-
-		if(j1()){
-			cout<<0<<'\n';
-			continue;
-		}
-
-		node ans[10007];
-		int cnt=1;
-		if(matx[1][1]){
-			cout<<-1<<'\n';
-			continue;
-		}
-		int flag=1;
-		FOR(i,1,n){
-			if(matx[i][1]){
-				if(!matx[i-1][1]){
-					ans[cnt++]={i-1,1,i,1};
-				}
-				else{
-					flag=0;
-				}
-			}
-		}
-		FOR(j,1,m){
-			if(matx[1][j]){
-				if(!matx[1][j-1]){
-					ans[cnt++]={1,j-1,1,j};
-				}
-				else{
-					flag=0;
-				}
-			}
-		}
-		if(!flag){
-			cout<<-1<<'\n';
-			continue;
-		}
-		FOR(i,2,n){
-			FOR(j,2,m){
-				if(matx[i][j]){
-					if(!matx[i][j-1]){
-						ans[cnt++]={i,j-1,i,j};
-					}
-					elif(!matx[i-1][j]){
-						ans[cnt++]={i-1,j,i,j};
-					}
-					elif(!matx[i-1][j-1]){
-						ans[cnt++]={i-1,j-1,i,j};
-					}
-					else{
-						flag=0;
-					}
-				}
-			}
-			if(!flag) break;
-		}
-		if(!flag){
-			cout<<-1<<'\n';
-		}
-		else{
-			cout<<cnt-1<<'\n';
-			FOR(i,1,cnt-1){
-
-				cout<<ans[i].a<<' '<<ans[i].b<<' '<<ans[i].c<<' '<<ans[i].d<<'\n';
-			}
-		}
-
-	}
-	return 0;
+ 
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+ 
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 }
