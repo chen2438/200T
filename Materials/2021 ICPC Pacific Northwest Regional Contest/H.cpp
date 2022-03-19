@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-	sync_with_stdio(0);
+	cin.tie(0)->sync_with_stdio(0);
    string s ;
    cin >> s ;
    string ss = s + s ;
