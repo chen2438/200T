@@ -1,6 +1,8 @@
 //提交代码前 检查 是否注释掉 辅助调试代码
 // tmp: vector<vector<int>> dp(n,vector<int>(m,999));
 /*
+ios_base::sync_with_stdio(0);
+cin.tie(0);
 #pragma GCC optimize(2)
 #pragma G++ optimize(2)
 clock_t st=clock();
@@ -17,8 +19,7 @@ typedef long long ll;
 using namespace std;
 
 int main(){
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
+	cin.tie(0)->sync_with_stdio(0);
 	
 	return 0;
 }
