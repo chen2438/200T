@@ -13,11 +13,12 @@ int nex[N];
 char a[N],b[N];
 
 int main(){
-    cin>>(b+1)>>(a+1);//A:模式串;B:文本串
+    scanf("%s%s",b+1,a+1);
+    //cin>>(b+1)>>(a+1);//A:模式串;B:文本串
     int lena=strlen(a+1),lenb=strlen(b+1);
     nex[1]=0;
 
-    int j;
+    int j=0;
     FOR(i,2,lena){//A串自己匹配
         while(j>0 and a[i]!=a[j+1]) j=nex[j];
         if(a[i]==a[j+1]) j++;
