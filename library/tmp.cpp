@@ -1,16 +1,20 @@
-#include<bits/stdc++.h>
-#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
 using namespace std;
-
-int main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    
-    double k,T,e;
-    e=1.6e-19;
-    T=21.2+273.15;
-    double ktchue=0.025;
-    k=ktchue*e/T;
-    cout<<k;
+int main() {
+    int w, n;
+    cin>>w>>n;
+    int *a = new int[n];
+    for(int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    sort(a, a+n);
+    int i = 0, j = n-1, cnt = 0;
+    while(i <= j) {
+        if(a[i] + a[j] <= w) i++;
+        cnt++;
+        j--;
+    }
+    cout << cnt;
     return 0;
 }
