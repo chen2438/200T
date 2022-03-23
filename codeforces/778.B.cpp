@@ -1,12 +1,8 @@
-#include<cstdio>
-#include<algorithm>
-#include<cstring>
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 using namespace std;
-int t;
-char s[200005];
-int lst[205];
-int main()
-{
+
+int main(){
     cin>>t;
     while(t--){
         for(int i='a';i<='z';i++) lst[i]=0;

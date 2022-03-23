@@ -13,6 +13,8 @@ void solve( ) {
 }
 
 int main(void) {
+  int tt;cin>>tt;
+  while(tt--)
   solve();
   return 0;
 }
