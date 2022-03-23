@@ -10,6 +10,7 @@ freopen("input.txt","r",stdin);
 freopen("output.txt","w",stdout);
 #define PI acos(-1.0)
 typedef long long ll;
+using ll=long long;
 */
 
 #define int long long//注意：类型宏定义放在变量定义前面
@@ -28,10 +29,11 @@ int main(){
 #define maxs(a,b) ((a)>(b)?(a):(b))
 #define mins(a,b) ((a)<(b)?(a):(b))
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
-#define mem(a) memset(a,0,sizeof(a))
+#define mem(a) memset((a),0,sizeof(a))
+#define all(a) ((a).begin(),(a).end())
 #define elif else if
 #define scan(a) scanf("%d",&(a))
-#define print(a) printf("%d",a)
+#define print(a) printf("%d",(a))
 #define endl '\n'
 /*严禁使用
 #define memmax(a) memset(a,63,sizeof(a))
