@@ -25,10 +25,10 @@ int main(){
 	return 0;
 }
 /*----------------------------------------*/
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
 #define abss(x) ((x)>(0)?(x):(-1)*(x))
 #define maxs(a,b) ((a)>(b)?(a):(b))
 #define mins(a,b) ((a)<(b)?(a):(b))
-#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
 #define mem(a) memset((a),0,sizeof(a))
 #define all(a) ((a).begin(),(a).end())
 #define elif else if
