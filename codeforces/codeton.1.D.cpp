@@ -1,17 +1,11 @@
-//#pragma GCC optimize(2)
-//clock_t st=clock();
 #include<bits/stdc++.h>
-#define abss(x) ((x)>(0)?(x):(-1)*(x))
-#define maxs(a,b) ((a)>(b)?(a):(b))
-#define mins(a,b) ((a)<(b)?(a):(b))
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
-#define mem(a) memset(a,0,sizeof(a))
-const int INF (1<<30);
-const int inf (-1<<30);
 using namespace std;
+/*
+#define int long long
 
-const int maxn=1e8+7,maxm=6e6;
+const int maxn=1e18+7,maxm=1e9;
 bool isPrime[maxn];
 int Prime[maxm],cnt=0;
 
@@ -29,13 +23,17 @@ void GetPrime(int n){//数据范围[1,n]
         }
     }
 }//素数被标记为1，合数被标记为0
-
-int main(){
-    int n,q,k;
-    cin>>n>>q;
-    GetPrime(n);
-    FOR(i,1,n){
-        if(isPrime[i])cout<<i<<" ";
-    }
-    return 0;
+*/
+signed main(){
+	cin.tie(0)->sync_with_stdio(0);
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		int f=0;
+		for(int i=3;i*i<n+10;i+=2){
+			if(n%i==0){cout<<i<<'\n';f=1;break;}
+		}
+		if(f==0)cout<<"-1\n";
+	}
+	return 0;
 }
