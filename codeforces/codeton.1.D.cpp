@@ -2,9 +2,9 @@
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
 using namespace std;
-/*
-#define int long long
 
+#define int long long
+/*
 const int maxn=1e18+7,maxm=1e9;
 bool isPrime[maxn];
 int Prime[maxm],cnt=0;
