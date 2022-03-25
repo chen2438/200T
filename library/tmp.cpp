@@ -1,41 +1,30 @@
-//#pragma GCC optimize(2)
-//clock_t st=clock();
 #include<bits/stdc++.h>
-#define abss(x) ((x)>(0)?(x):(-1)*(x))
-#define maxs(a,b) ((a)>(b)?(a):(b))
-#define mins(a,b) ((a)<(b)?(a):(b))
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
-#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
-#define mem(a) memset(a,0,sizeof(a))
-const int INF (1<<30);
-const int inf (-1<<30);
 using namespace std;
 
-const int maxn=1e8+7,maxm=6e6;
-bool isPrime[maxn];
-int Prime[maxm],cnt=0;
+const int maxn (1e5+7);
+const int INF (1<<30);
 
-void GetPrime(int n){//数据范围[1,n]
-    memset(isPrime,1,sizeof(isPrime));
-    isPrime[1]=0;
+long long f[maxn];
 
-    FOR(i,2,n){
-        if(isPrime[i])//没被筛掉 
-            Prime[++cnt]=i;//i成为下一个素数
-            
-        for(int j=1;j<=cnt and i*Prime[j]<=n;j++){
-            isPrime[i*Prime[j]]=0;
-            if(i%Prime[j]==0) break;
-        }
-    }
-}//素数被标记为1，合数被标记为0
-
-int main(){
-    int n,q,k;
-    cin>>n>>q;
-    GetPrime(n);
-    FOR(i,1,n){
-        if(isPrime[i])cout<<i<<" ";
-    }
-    return 0;
+int a(int x){
+    return (3*x*x-x)/2;
+}
+int main()
+{
+ int n,p;
+ cin>>n>>p;
+ f[0]=1;
+ for(int i=1;i<=n;i++)
+  for(int j=1;;j++)
+  {
+   int x=a(j),y=a(-j);
+   if(x<=i)
+    f[i]=((f[i]+(j&1?1:-1)*f[i-x])%p+p)%p;
+   if(y<=i)
+    f[i]=((f[i]+(j&1?1:-1)*f[i-y])%p+p)%p;
+   if(x>i||y>i)break;
+  }
+ cout<<f[n]<<endl;
+ return 0;
 }
