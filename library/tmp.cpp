@@ -1,31 +1,34 @@
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
-
 using namespace std;
+const int maxn=5e5+7; 
 
-const int maxn (1e5+7);
-const int INF (1<<30);
+int a[maxn];
 
-long long f[maxn];
+int main(){
+    int n;
+    cin>>n;
 
-int a(int x){
-    return (3*x*x-x)/2;
-}
-int main()
-{
- int n,p;
- cin>>n>>p;
- f[0]=1;
- for(int i=1;i<=n;i++)
-  for(int j=1;;j++)
-  {
-   int x=a(j),y=a(-j);
-   if(x<=i)
-    f[i]=((f[i]+(j&1?1:-1)*f[i-x])%p+p)%p;
-   if(y<=i)
-    f[i]=((f[i]+(j&1?1:-1)*f[i-y])%p+p)%p;
-   if(x>i||y>i)break;
-  }
- cout<<f[n]<<endl;
- return 0;
+    for(int i=1;i<=n;i++){
+        a[i]=n%i;
+        cout<<i<<" "<<a[i]<<endl;
+    }
+    cout<<"\n\n";
+    cout<<1<<" "<<a[1]<<" --- ";
+    for(int i=2;i<=n;i++){
+        if(a[i-1]<a[i]){
+            cout<<i-1<<" "<<a[i-1]<<endl;
+            cout<<i<<" "<<a[i]<<" --- ";
+        }
+    }
+    cout<<"\n\n";
+    set<int> s;
+    for(int i=n;i>=1;i--){
+        s.insert(n/i);
+    }
+    for(auto i:s){
+        cout<<i<<" ";
+    }
+   
+    return 0;
 }
