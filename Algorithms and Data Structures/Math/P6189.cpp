@@ -12,7 +12,6 @@ inline int a(int x){
 }
 
 int main(){
-    cin.tie(0)->sync_with_stdio(0);
     int n,p;
     cin>>n>>p;
     f[0]=1;
