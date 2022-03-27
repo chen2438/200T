@@ -17,3 +17,5 @@ For common training
 2.26 macOS 编程测试
 
 3.12 我好不容易打一次cf，你却让我输的这么彻底，CAO！
+
+3.27 阿里云 OSS 图床测试
