@@ -4,6 +4,9 @@ using namespace std;
 #define ll long long
 
 const int mod=1e9+7;
+const int maxn=2e5+7;
+
+ll fa[maxn];
 
 ll qpow(ll a,ll b,ll mod){//a^b
     ll ans=1,base=a;
@@ -15,26 +18,23 @@ ll qpow(ll a,ll b,ll mod){//a^b
     return ans;
 }
 
-ll C(ll n,ll m,ll p){
-    if(n<m) return 0;
-    if(m>n-m) m=n-m;
-    ll a=1,b=1;
-    FOR(i,0,m-1){
-        a=(a*(n-i))%p;
-        b=(b*(i+1))%p;
-    }
-    return a*qpow(b,p-2,p)%p;
+void init(){
+	fa[0]=fa[1]=1;//f[0]也要赋值
+	FOR(i,2,maxn-1)
+		fa[i]=fa[i-1]*i%mod;
 }
 
 int main(){
 	cin.tie(0)->sync_with_stdio(0);
+	init();
 	int T;cin>>T;
 	while(T--){
 		ll n,m,k,q;
 		cin>>n>>m>>k>>q;
-		ll A=C(n,k,mod);
-		ll B=C(n+m,k,mod);
-		B=qpow(B,mod-2,mod);
+		if(n-k<0){cout<<"0\n";continue;}
+		ll A=fa[n]*fa[n+m-k]%mod;
+		ll B=fa[n-k]*fa[n+m]%mod;
+		B=qpow(B,mod-2,mod);//B转换为逆元
 		ll ans=qpow(A*B%mod,q,mod);
 		cout<<ans<<'\n';
 	}
