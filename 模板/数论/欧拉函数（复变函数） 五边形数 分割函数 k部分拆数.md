@@ -94,7 +94,7 @@ int main(){
 
 **递推式**：$p(n,k)=p(n-1,k-1)+p(n-k,k)$
 
-例题：计算 $k$ 部分拆数 $p(n,k)$。多组输入，其中 $n$ 上界为 $10000$，$k$ 上界为 $1000$，对 $1000007$ 取模。
+例题：计算 $k$ 部分拆数 $p(n,k)$。多组输入，其中 $n$ 上界为 $10000$，$k$ 上界为 $1000$，对 $1e9+7$ 取模。
 ```cpp
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
@@ -109,7 +109,6 @@ int main() {
     while(cin>>n>>k) {
         memset(p,0,sizeof(p));
         p[0][0]=1;
-        int i;
         FOR(i,1,n){
             FOR(j,1,k)
                 if(i-j>=0) p[i][j]=(p[i-j][j]+p[i-1][j-1])%mod;
