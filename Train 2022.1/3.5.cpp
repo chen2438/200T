@@ -9,7 +9,7 @@ set<string> nums;
 void dfs(string s){
 	const int ssize=nums.size();
 	nums.insert(s);
-	if(nums.size()==ssize) return; //判重 
+	if(nums.size()==ssize) return;
 	int len=s.length();
 	FOR(i,0,len-1)
 		FOR(j,0,k-1)
