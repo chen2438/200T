@@ -38,7 +38,7 @@ signed main() {
   int n; cin >> n;
   for(int i = 0; i < n; i++) {
     int val; cin >> val;
-    cout << dis[val] <<"123"[(i==n-1)+1];
+    cout << dis[val] <<" \n"[i==n-1];
   }
 
   return 0;

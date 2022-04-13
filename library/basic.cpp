@@ -28,13 +28,13 @@ signed main(){
 #define maxs(a,b) ((a)>(b)?(a):(b))
 #define mins(a,b) ((a)<(b)?(a):(b))
 #define mem(a) memset((a),0,sizeof(a))
-#define all(a) ((a).begin(),(a).end())
+#define all(a) (a).begin(),(a).end()
 #define elif else if
 #define scan(a) scanf("%d",&(a))
 #define print(a) printf("%d",(a))
 #define endl '\n'
-/*严禁使用
-
+/*谨慎使用
+#define push_back emplace_back
 #define memmax(a) memset(a,63,sizeof(a))
 #define memmax(a) memset(a,127,sizeof(a))
 #define memmin(a) memset(a,128,sizeof(a))
