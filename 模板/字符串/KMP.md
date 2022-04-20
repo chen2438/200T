@@ -1,4 +1,8 @@
-[P3375 【模板】KMP字符串匹配](https://www.luogu.com.cn/problem/solution/P3375)
+## KMP
+
+![image-20220420154035185](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-20-074035.png)
+
+[P3375 【模板】KMP字符串匹配](https://www.luogu.com.cn/problem/P3375)
 
 [参考](https://fanfansann.blog.csdn.net/article/details/107555602)
 
