@@ -1,3 +1,19 @@
+## Manacher
+
+**题目描述**
+
+给出一个只由小写英文字符 $\texttt a,\texttt b,\texttt c,\ldots\texttt y,\texttt z$ 组成的字符串 $S$ ,求 $S$ 中最长回文串的长度 。
+
+字符串长度为 $n$。
+
+**输入格式**
+
+一行小写英文字符 $\texttt a,\texttt b,\texttt c,\cdots,\texttt y,\texttt z$ 组成的字符串 $S$。
+
+**输出格式**
+
+一个整数表示答案。
+
 [P3805 【模板】manacher 算法](https://www.luogu.com.cn/problem/P3805)
 
 [参考](https://12349.blog.luogu.org/manacher-zong-jie)
