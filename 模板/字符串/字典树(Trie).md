@@ -2,6 +2,8 @@
 
 #### 字典树写法
 
+![image-20220420163923290](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-20-083923.png)
+
 [参考1](https://www.luogu.com.cn/blog/_post/31110)
 
 [参考2](https://www.luogu.com.cn/blog/_post/82818)

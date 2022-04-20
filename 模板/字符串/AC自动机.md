@@ -1,3 +1,7 @@
+## AC自动机
+
+![image-20220420163623586](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-20-083623.png)
+
 [P3808 【模板】AC 自动机（简单版）](https://www.luogu.com.cn/problem/P3808)
 
 [参考](https://oi-wiki.org/string/ac-automaton/#_8)
