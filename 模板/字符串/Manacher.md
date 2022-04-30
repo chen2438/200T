@@ -62,3 +62,24 @@ int main(){
     return 0;
 }
 ```
+
+### 输出回文串
+
+![image-20220430152858207](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-30-072858.png)
+
+![image-20220430152908986](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-30-072909.png)
+
+```cpp
+    FOR(i,2,ans+1){
+        FOR(j,1,len-1){
+            if(i<=R[j]){
+                if(s[j-(R[i]-1)]=='$')continue;
+                FOR(k,j-(i-1),j+(i-1)){
+                    if(s[k]=='$')continue;
+                    cout<<s[k];
+                }cout<<endl;
+            }
+        }
+    }
+```
+
