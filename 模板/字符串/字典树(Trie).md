@@ -1,3 +1,5 @@
+# 字典树(Trie)
+
 ## [P3879 [TJOI2010] 阅读理解](https://www.luogu.com.cn/problem/P3879)
 
 #### 字典树写法
