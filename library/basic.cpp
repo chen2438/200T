@@ -28,6 +28,8 @@ signed main(){
 #define maxs(a,b) ((a)>(b)?(a):(b))
 #define mins(a,b) ((a)<(b)?(a):(b))
 #define mem(a) memset((a),0,sizeof(a))
+#define memmax(a) memset(a,0x3f,sizeof(a))
+#define memmin(a) memset(a,-0x3f,sizeof(a))
 #define all(a) (a).begin(),(a).end()
 #define elif else if
 #define scan(a) scanf("%d",&(a))
