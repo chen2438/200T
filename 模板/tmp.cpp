@@ -3,9 +3,7 @@
 using namespace std;
 
 signed main(){
-    //cin.tie(0)->sync_with_stdio(0);
-    queue<int> q;
-    q.push(1);
-    cout<<1;
+    unsigned long long a=1;
+    cout<<(2^1);
     return 0;
 }
