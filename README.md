@@ -23,3 +23,5 @@ For common training
 4.30 可打印化模板
 
 5.11 从未打过如此傻逼的比赛
+
+6.25 将学科笔记转移合并到另一个 [repo](https://github.com/chen2438/zstu-study)
