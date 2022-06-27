@@ -13,7 +13,7 @@ signed main(){
 			if(pre==0 and x!=0) ans++;
 			pre=x;
 		}
-		cout<<ans<<'\n';
+		cout<<min(ans,2)<<'\n';
 	}
 	return 0;
 }
