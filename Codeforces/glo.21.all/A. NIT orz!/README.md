@@ -2,7 +2,7 @@ https://codeforces.com/contest/1696/problem/A
 
 ### 标签
 
-二进制
+位运算
 
 ### 题意
 
