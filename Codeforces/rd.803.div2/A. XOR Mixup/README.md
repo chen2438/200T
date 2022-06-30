@@ -18,7 +18,7 @@ https://codeforces.com/contest/1698/problem/A
 
 以下是我在比赛时的推导.
 
-由于按位异或运算有交换律(a ^ b ^ c = a ^ c ^b), 我们可以把所有数按位异或得到 sum.
+由于按位异或运算有交换律, 结合律 (a ^ b ^ c = a ^ c ^ b), 我们可以把所有数按位异或得到 sum.
 
 我们可以通过对 sum 再次异或得到异或之前的两个数. a ^ b = c, c ^ a = b, c ^ b = a.
 
