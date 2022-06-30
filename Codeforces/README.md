@@ -2,7 +2,7 @@
 
 codeforces
 
-- rd.802.div2 (类型.编号.等级)
+- rd.802.div2
     - A.Optimal Path
         - A.cpp
         - A.exe
