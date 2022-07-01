@@ -4,6 +4,7 @@ using namespace std;
 
 signed main(){
 	cin.tie(0)->sync_with_stdio(0);
+	puts("debug");
 	int T;cin>>T;
 	while(T--){
 		int n,z;cin>>n>>z;

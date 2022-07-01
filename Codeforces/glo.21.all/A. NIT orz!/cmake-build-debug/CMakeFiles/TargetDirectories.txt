@@ -1,0 +1,3 @@
+/Users/nanmener/Documents/GitHub/200T/Codeforces/glo.21.all/A. NIT orz!/cmake-build-debug/CMakeFiles/A__NIT_orz_.dir
+/Users/nanmener/Documents/GitHub/200T/Codeforces/glo.21.all/A. NIT orz!/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/nanmener/Documents/GitHub/200T/Codeforces/glo.21.all/A. NIT orz!/cmake-build-debug/CMakeFiles/rebuild_cache.dir

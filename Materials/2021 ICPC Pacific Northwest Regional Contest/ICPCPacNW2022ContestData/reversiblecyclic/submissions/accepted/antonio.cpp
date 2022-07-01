@@ -1,8 +1,8 @@
 // {{{ y0105w49 template 21Q22
 // hi mom
 #ifndef NULL
-// #include <bits/stdc++.h>
-#include <bits/extc++.h>
+ #include <bits/stdc++.h>
+//#include <bits/extc++.h>
 #endif
 #include <tr2/dynamic_bitset>
 using namespace std;
