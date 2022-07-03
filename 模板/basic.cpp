@@ -1,7 +1,5 @@
 ```cpp
 //提交代码前 检查 是否注释掉 辅助调试代码
-"-std=c++20"
-//tmp: vector<vector<int>> dp(n,vector<int>(m,999));
 
 ios_base::sync_with_stdio(0),cin.tie(0);
 #pragma GCC optimize(2)
@@ -33,8 +31,8 @@ signed main(){
 #define memmin(a) memset(a,-0x3f,sizeof(a))
 #define all(a) (a).begin(),(a).end()
 #define elif else if
-#define scan(a) scanf("%d",&(a))
-#define print(a) printf("%d",(a))
+#define scan(a) scanf("%I64d",&(a))
+#define print(a) printf("%I64d",(a))
 #define endl '\n'
 /*谨慎使用
 #define push_back emplace_back
