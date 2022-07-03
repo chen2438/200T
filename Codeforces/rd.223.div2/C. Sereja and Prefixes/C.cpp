@@ -3,7 +3,7 @@
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
 using namespace std;
 using ll=long long;
- 
+//#define ll int
 const int N = 1e5+7;
 int m;
 struct node{ll o,L,R,x,l,c;}p[N];
@@ -25,7 +25,6 @@ int ask(ll pos){
 		if(npos==0) npos=p[i].l;
 		return ask(npos);
 	}
- 
 	return -1;
 }
  
