@@ -9,7 +9,8 @@ const ll p = 1e9+7;
 int f[N],g[N];//g 是 f 的反函数
 
 signed main(){
-	cin.tie(0)->sync_with_stdio(0);
+	//cin.tie(0)->sync_with_stdio(0);
+	cout<<"debug\n";
 	int T;cin>>T;
 	while(T--){
 		int n;cin>>n;
