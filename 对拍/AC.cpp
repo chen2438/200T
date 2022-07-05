@@ -1,66 +1,39 @@
-//#pragma GCC optimize(2)
 #include<bits/stdc++.h>
-#define abss(x) ((x)>(0)?(x):(-1)*(x))
-#define maxs(a,b) ((a)>(b)?(a):(b))
-#define mins(a,b) ((a)<(b)?(a):(b))
-#define FOR(i,a,b) for(int i=(a);i<=(b);i++)
-#define ROF(i,a,b) for(int i=(a);i>=(b);i--)
-#define mem(a) memset(a,0,sizeof(a))
-const int INF (1<<30);
-const int inf (-1<<30);
+
 using namespace std;
+typedef long long ll;
 
-struct node{
-	int di,fu;
-}sta[10007];
+const ll NMAX=1e5+5,MOD=1e9+7;
 
-bool cmp(node x,node y){
-	return x.di<y.di;
+ll v[NMAX],pos[NMAX];
+void tc(){
+
+    ll n,l,r,ans=1;
+
+    cin>>n;
+
+    for(ll i=0;i<n;i++){
+        cin>>v[i];
+        pos[v[i]]=i;
+    }
+
+    l = r = pos[0];
+
+    for(ll i=1;i<n;i++){
+        if(pos[i]<l) l = pos[i];
+
+        else if(pos[i]>r) r = pos[i];
+
+        else ans=ans*(r-l+1-i)%MOD;
+    }
+    cout<<ans<<'\n';
 }
-
-int N,L,P;
-priority_queue<int,vector<int>,less<int> > heap;
-
-int main(){
-	cin>>N;
-	int di,fu;
-	FOR(i,0,N-1){
-		cin>>di>>fu;
-		sta[i]={di,fu};
-	}
-	cin>>L>>P;
-	FOR(i,0,N-1){
-		sta[i].di=L-sta[i].di;
-	}
-
-	sort(sta,sta+N,cmp);
-	sta[N++]={L,0};
-
-	int ans=0,pos=0,fue=P;
-
-	FOR(i,0,N-1){
-		int di=sta[i].di-pos;
-		while(fue<di){
-			if(heap.empty()){
-				cout<<-1;
-				return 0;
-			}
-			fue+=heap.top();
-			heap.pop();
-			ans++;
-		}
-		fue-=di;
-		pos=sta[i].di;
-		heap.push(sta[i].fu);
-	}
-	cout<<ans<<endl;
-	return 0;
+int main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(0);
+    ll t;
+    cin>>t;
+    while(t--)
+        tc();
+    return 0;
 }
-
-/*
-3
-5 1
-8 8
-8 7
-9 1
-*/

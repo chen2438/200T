@@ -1,5 +1,5 @@
 :again  
-data > input.txt
+# data > input.txt
 AC < input.txt > AC_output.txt  
 WA < input.txt > WA_output.txt  
 fc AC_output.txt WA_output.txt  
