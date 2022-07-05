@@ -1,3 +1,24 @@
+https://codeforces.com/contest/1699/problem/B
+
+### 标签
+
+找规律
+
+### 题意
+
+给定偶数 n 和 m, 找到一个 n 行 m 列的 01 矩阵, 使得矩阵里的每个元素有且仅有 2 个不同的(4 个方向上的)相临元素.
+
+### 思路
+
+找规律
+
+![img](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-05-075312.png)
+
+### 代码
+
+![image-20220705155353433](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-05-075353.png)
+
+```cpp
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 using namespace std;
@@ -29,3 +50,5 @@ signed main(){
 	}
 	return 0;
 }
+```
+
