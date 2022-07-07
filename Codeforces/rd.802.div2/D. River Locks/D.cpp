@@ -15,7 +15,6 @@ double MinTime(){
 	return ans;
 }//为了填满第i个水库, 必须消耗pre[i]/i的时间
 //填满所有水库所需要的最小时间取决于最大的pre[i]/i
-//木桶效应
 
 signed main(){
 	cin.tie(0)->sync_with_stdio(0);
@@ -30,9 +29,11 @@ signed main(){
 		int t;cin>>t;
 		if(t<mt) {cout<<-1<<endl;continue;}
 		int l=1,r=n;
+		//要l=r尽可能小, 但满足实际时间=pre[n]/r<=t, 
 		while(l<r){
 			int mid=(l+r)/2;
 			if(pre[n]/(mid*1.0)<=t) r=mid;
+			//考虑mid不满足条件时应该往哪半边找, 找的区间不能包含mid
 			else l=mid+1; 
 		}
 		cout<<r<<endl;
