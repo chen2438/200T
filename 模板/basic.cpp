@@ -1,4 +1,4 @@
-```cpp
+
 //提交代码前 检查 是否注释掉 辅助调试代码
 
 ios_base::sync_with_stdio(0),cin.tie(0);
@@ -8,6 +8,7 @@ clock_t st=clock();
 freopen("input.txt","r",stdin);
 freopen("output.txt","w",stdout);
 #define PI acos(-1.0)
+#define PII pair<int,int>
 typedef long long ll;
 using ll=long long;
 #define int long long//注意：类型宏定义放在变量定义前面
@@ -50,9 +51,12 @@ const long long INF=LLONG_MAX;
 /*----------------------------------------*/
 struct node{
     int l,r;
-    bool operator<(const node &v)const{
-        return r<v.r;
+    bool operator<(const node &y)const{
+        return r<y.r;
     }
 };
 /*----------------------------------------*/
-```
+floor() 不大于自变量的最大整数 向下取整
+ceil()  不小于自变量的最大整数 向上取整
+round() 四舍五入到最邻近的整数 
+/*----------------------------------------*/
