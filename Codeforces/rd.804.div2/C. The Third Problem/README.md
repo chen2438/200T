@@ -2,7 +2,7 @@ https://codeforces.com/contest/1699/problem/C
 
 ### 标签
 
-数组操作
+数组操作, 构造
 
 ### 题意
 
