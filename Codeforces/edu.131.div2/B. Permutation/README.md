@@ -1,3 +1,5 @@
+## B. Permutation
+
 https://codeforces.com/contest/1701/problem/B
 
 ### 标签
