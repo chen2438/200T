@@ -2,7 +2,7 @@ https://codeforces.com/contest/1699/problem/B
 
 ### 标签
 
-找规律
+构造
 
 ### 题意
 
