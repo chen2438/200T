@@ -25,3 +25,5 @@ For common training
 5.11 从未打过如此傻逼的比赛
 
 6.25 将学科笔记转移合并到另一个 [repo](https://github.com/chen2438/zstu-study)
+
+7.9 我好难 <img src="https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207092151972.png" alt="image-20220709215128937" style="zoom:50%;" />
