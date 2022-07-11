@@ -22,15 +22,18 @@ signed main(){
 		sort(b+1,b+n+1);
 		multiset<int> A(a+1,a+n+1);
 		multiset<int> B(b+1,b+n+1);
-		int ans=1;
+		//for(auto i:A) cout<<i<<" ";
+		//cout<<endl;
+		//for(auto i:B) cout<<i<<" ";
+		//cout<<endl;cout<<endl;
 		for(auto i:B){
 			auto it=A.find(i);
 			if(it!=A.end())A.erase(it);
 			else{
 				while(1){
 					i/=2;
-					i/=2;
-					if(i==0){ans=0;break;}
+					//i/=2;
+					if(i==0){break;}
 					auto jt=A.find(i);
 					if(jt!=A.end()){A.erase(jt);break;}
 				}
