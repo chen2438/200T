@@ -1,11 +1,9 @@
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
-#define PII pair<int,int>
 using namespace std;
-//char s[200007];
-int a[200007];
-int b[200007];
+
+int a[200007],b[200007];
 
 signed main(){
 	cin.tie(0)->sync_with_stdio(0);
@@ -18,21 +16,14 @@ signed main(){
 			while(a[i]%2==0) a[i]/=2;
 			while(b[i]%2==0) b[i]/=2;
 		}
-		sort(a+1,a+n+1);
-		sort(b+1,b+n+1);
 		multiset<int> A(a+1,a+n+1);
 		multiset<int> B(b+1,b+n+1);
-		//for(auto i:A) cout<<i<<" ";
-		//cout<<endl;
-		//for(auto i:B) cout<<i<<" ";
-		//cout<<endl;cout<<endl;
 		for(auto i:B){
 			auto it=A.find(i);
 			if(it!=A.end())A.erase(it);
 			else{
 				while(1){
 					i/=2;
-					//i/=2;
 					if(i==0){break;}
 					auto jt=A.find(i);
 					if(jt!=A.end()){A.erase(jt);break;}

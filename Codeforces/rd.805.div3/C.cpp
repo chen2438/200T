@@ -1,14 +1,10 @@
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
-#define PII pair<int,int>
 using namespace std;
 
-unordered_map<string,int> ml;
-unordered_map<string,int> mr;
-//#define int long long
-//int a[200007];
-//PII ga[200007];
+unordered_map<string,int> ml,mr;
+
 signed main(){
 	cin.tie(0)->sync_with_stdio(0);
 	int T;cin>>T;
