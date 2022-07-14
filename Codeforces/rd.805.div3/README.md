@@ -10,7 +10,7 @@
 
 给定 m, 使其变成不大于 m 的最接近的 10 的幂, 输出它们的差值.
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-13-074958.png" alt="image-20220713154958690" style="zoom:50%;" />
+<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-13-074958.png" alt="image-20220713154958690" style="zoom: 33%;" />
 
 ### 代码
 
