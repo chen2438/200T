@@ -1,4 +1,4 @@
-https://codeforces.com/group/contest/381/problem/C
+https://codeforces.com/contest/381/problem/C
 
 ### 标签
 
