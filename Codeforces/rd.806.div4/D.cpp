@@ -21,10 +21,17 @@ signed main(){
 		string ans;
 		for(string i:v){
 			int has=0;
+<<<<<<< Updated upstream
 			FOR(j,0,i.size()-1){
 				string l,r;
 				l=i.substr(0,j+1);
 				r=i.substr(j+1);
+=======
+			for(int j=0;j<i.size();j++){
+				string l,r;
+				FOR(k,0,j) l+=i[k];
+				FOR(k,j+1,i.size()-1) r+=i[k];
+>>>>>>> Stashed changes
 				if(mp[l] and mp[r]) {has=1;break;}
 			}
 			if(has) ans+='1';

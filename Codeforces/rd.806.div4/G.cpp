@@ -3,6 +3,7 @@
 using namespace std;
 
 #define int long long
+<<<<<<< Updated upstream
 const int N = 1e5+7;
 int a[N],pre[N];
 
@@ -24,6 +25,15 @@ void solve(){
 		ans=max(ans,sum);
 	}
 	cout<<ans<<endl;
+=======
+
+int a[100007];
+
+void solve(){
+	int n,k; cin>>n>>k;
+	FOR(i,1,n) cin>>a[i];
+	
+>>>>>>> Stashed changes
 }
 
 signed main(){
