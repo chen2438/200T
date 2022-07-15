@@ -13,14 +13,6 @@ struct node{
 
 vector<node> a,b;
 
-bool cmp1(const node &x,const node &y){
-	return x.v<y.v;
-}
-
-bool cmp2(const node &x,const node &y){
-	return x.idx<y.idx;
-}
-
 signed main(){
 	cin.tie(0)->sync_with_stdio(0);
 	int T;cin>>T;
@@ -28,18 +20,13 @@ signed main(){
 		a.clear();
 		int n;cin>>n;
 		FOR(i,1,n){
-			int v;
-			cin>>v;
+			int v; cin>>v;
 			if(v>=i) continue;
 			a.push_back({v,i});
 		}
 		b=a;
-		sort(a.begin(),a.end(),cmp1);
-		sort(b.begin(),b.end(),cmp2);
-		// for(auto i:a)cout<<i.v<<" ";
-		// cout<<endl;
-		// for(auto i:b)cout<<i.v<<" ";
-		// cout<<endl;
+		sort(a.begin(),a.end(),[](node &x, node &y){return x.v<y.v;});
+		sort(b.begin(),b.end(),[](node &x, node &y){return x.idx<y.idx;});
 		int ans=0;
 		for(auto i:a){
 			int l=0,r=b.size()-1;
@@ -48,10 +35,8 @@ signed main(){
 		        if(b[mid].idx<i.v) l=mid+1;
 		        else r=mid;
 		    }
-		    //cout<<r<<" ";
 		    ans+=r;
 		}
-
 		cout<<ans<<endl;
 	}
 	return 0;

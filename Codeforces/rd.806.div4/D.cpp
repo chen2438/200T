@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
-#define mem(a) memset((a),0,sizeof(a))
 using namespace std;
 
 vector<string> v;
@@ -21,13 +20,15 @@ signed main(){
 		}
 		string ans;
 		for(string i:v){
-			for(int j=0;j<i.size();j++){
+			int has=0;
+			FOR(j,0,i.size()-1){
 				string l,r;
-				FOR(k,0,j) l+=i[k];
-				FOR(k,j+1,i.size()-1) r+=i[k];
-				if(mp[l] and mp[r]) ans+='1';
-				else ans+='0';
+				l=i.substr(0,j+1);
+				r=i.substr(j+1);
+				if(mp[l] and mp[r]) {has=1;break;}
 			}
+			if(has) ans+='1';
+			else ans+='0';
 		}
 		cout<<ans<<endl;
 	}
