@@ -16,23 +16,17 @@ int n;
 int ask(int k){
     int l=0,r=a.size()-1;
     while(l<r){
-        //cout<<l<<" "<<r<<endl;
         int mid=(l+r)/2;
-        if(a[mid].l<=k and k<=a[mid].r){
-            r=mid;break;
-        }
-        else if(k<a[mid].l) r=mid-1;
-        else if(a[mid].r<k) l=mid+1;
+        if(k<a[mid].l) r=mid-1;
+        else l=mid+1;
     }
-    //cout<<l<<" "<<r<<endl;
     if(a[r].r<=n) return k;
     else{
         int nk=a[r].prel+k-a[r].l;
         return ask(nk);
     }
     return -1;
-}//k-l = nk - prel
-//nk=
+}
 
 void solve(){
     a.clear();

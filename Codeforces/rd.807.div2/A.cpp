@@ -8,9 +8,7 @@ void solve(){
 	FOR(i,1,2*n) cin>>a[i];
 	sort(a+1,a+2*n+1);
 	int ans=1;
-	FOR(i,1,n){
-		if(a[i+n]-a[i]<x) ans=0;
-	}
+	FOR(i,1,n) if(a[i+n]-a[i]<x) ans=0;
 	if(ans) cout<<"YES\n";
 	else cout<<"NO\n";
 }
