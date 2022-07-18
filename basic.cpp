@@ -21,7 +21,7 @@ void solve(){}
 
 signed main(){
     cin.tie(0)->sync_with_stdio(0);
-    int T; cin>>T;
+    int T=1; cin>>T;
     while(T--) solve();
     return 0;
 }
