@@ -10,7 +10,9 @@ freopen("output.txt","w",stdout);
 #define PI acos(-1.0)
 #define PII pair<int,int>
 typedef long long ll;
-using ll=long long;
+using ll = __int128;
+using ld = long double;
+printf("%.15Lf\n",(ld));
 #define int long long//注意：类型宏定义放在变量定义前面
 /*----------------------------------------*/
 #include<bits/stdc++.h>
