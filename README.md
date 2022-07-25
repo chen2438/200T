@@ -27,3 +27,6 @@ For common training
 6.25 将学科笔记转移合并到另一个 [repo](https://github.com/chen2438/zstu-study)
 
 7.9 我好难 <img src="https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207092151972.png" alt="image-20220709215128937" style="zoom:50%;" />
+
+7.25 呜哇<img src="https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252123116.png" alt="image-20220725212319077" style="zoom:50%;" />
+
