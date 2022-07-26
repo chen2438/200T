@@ -2,60 +2,58 @@
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 #define ROF(i,a,b) for(int i=(a);i>=(b);--i)
 #define mem(a) memset((a),0,sizeof(a))
-#define int long long
 #define endl '\n'
+// #define int long long
 using namespace std;
 
 const int N = 2e5+7;
-
-struct node{
-    int st,ed,use;
-    bool operator<(const node &y)const{
-        return use<y.use;
-    }
-};
-
 string s;
-int l[N],r[N],pre[N],suf[N];
-vector<node> q;
+
+bool check(int _l,int _r){
+    FOR(i,0,s.size()-1){
+        if(s[i]=='?'){
+            if(_l>=2){
+                s[i]='(';
+                _l--;
+            }
+            else if(_l==1){
+                s[i]=')';
+                _l=-1;
+            }
+            else if(_l==-1){
+                s[i]='(';
+                _l=-2;
+                _r--;
+            }
+            else if(_r>=1){
+                s[i]=')';
+                _r--;
+            }
+        }
+    }
+    stack<char> stk;
+    FOR(i,0,s.size()-1){
+        if(s[i]=='(') stk.push(s[i]);
+        if(s[i]==')'){
+            if(!stk.empty()) stk.pop();
+            else return false;
+        }
+        
+    }
+    return true;
+}
 
 void solve(){
-    mem(l),mem(r);
-    q.clear();
     cin>>s;
-    s+='!';
-    int len=s.size(),n=s.size();
-    FOR(i,0,len-1){
-        if(s[i]=='(') l[i]=1;
-        if(s[i]==')') r[i]=1;
+    int l=0,r=0,len=s.size();
+    for(auto i:s){
+        if(i=='(') l++;
+        if(i==')') r++;
     }
-    FOR(i,0,n-1) pre[i]=pre[i-1]+l[i];
-    ROF(i,n-1,0) suf[i]=suf[i+1]+r[i];
-    int st=0,ed=0;
-    FOR(i,1,len-1){
-        if(s[i-1]=='?' and s[i]=='?'){
-            ed=i;
-        }
-        else if(s[i-1]=='?'){
-            ed=i-1;
-    q.push_back({st,ed,ed-st+1-abs(pre[st]-suf[ed])});
-        }
-        else if(s[i]=='?'){
-            st=i;
-        }
-    }
-    for(auto i:q){
-        cout<<i.st<<" "<<i.ed<<" "<<i.use<<endl;
-    }
-
-    int usum=0,msum=0;
-    for(auto i:q){
-        usum+=i.use+i.ed-i.st+1;
-        msum+=pre[i.st]+suf[i.ed];
-    }
-    cout<<usum<<" "<<msum<<endl;
-    if(usum==msum) puts("YES");
-    else puts("NO");
+    int _l=len/2-l,_r=len/2-r;
+    if(_l==0 or _r==0) {puts("YES");return;}
+    if(check(_l,_r)) puts("NO");
+    else puts("YES");
 }
 
 signed main(){
