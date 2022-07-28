@@ -1,8 +1,10 @@
-# KMP
+### [P3375 【模板】KMP字符串匹配](https://www.luogu.com.cn/problem/P3375)
+
+#### 题目描述
 
 ![image-20220420154035185](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-20-074035.png)
 
-[P3375 【模板】KMP字符串匹配](https://www.luogu.com.cn/problem/P3375)
+#### 代码
 
 [参考](https://fanfansann.blog.csdn.net/article/details/107555602)
 
@@ -38,3 +40,42 @@ int main(){
     return 0;
 }
 ```
+
+### AcWing 831. KMP字符串
+
+#### 题目描述
+
+![image-20220728095315777](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-015316.png)
+
+#### 代码
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+const int N = 100010, M = 1000010;
+
+int n, m;
+int ne[N];
+char s[M], p[N];
+
+int main(){
+    cin >> n >> p + 1 >> m >> s + 1;//下标从1开始
+    for (int i = 2, j = 0; i <= n; i ++ ){//预处理next指针数组
+        while (j && p[i] != p[j + 1]) j = ne[j];
+        if (p[i] == p[j + 1]) j ++ ;
+        ne[i] = j;
+    }
+    for (int i = 1, j = 0; i <= m; i ++ ){//kmp匹配
+        while (j && s[i] != p[j + 1]) j = ne[j];
+        if (s[i] == p[j + 1]) j ++ ;
+        if (j == n){
+            printf("%d ", i - n);//答案下标从0开始
+            j = ne[j];
+        }
+    }
+    return 0;
+}
+```
+
