@@ -1,8 +1,22 @@
-# AC自动机
+AC 自动机 = trie 上 kmp => trie 图
+
+复杂度: $O(n)$
+
+AC 自动机: 对 trie 建立一个 next 数组
+
+KMP: 对一个单链 trie (一维数组) 建立一个 next 数组
+
+![image-20220728151823557](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-071823.png)
+
+![image-20220728152306010](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-072306.png)
+
+### [P3808 【模板】AC 自动机（简单版）](https://www.luogu.com.cn/problem/P3808)
+
+#### 题目描述
 
 ![image-20220420163623586](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-20-083623.png)
 
-[P3808 【模板】AC 自动机（简单版）](https://www.luogu.com.cn/problem/P3808)
+#### 代码
 
 [参考](https://oi-wiki.org/string/ac-automaton/#_8)
 
@@ -33,8 +47,7 @@ void build() {
     FOR(i,0,25)
         if(tr[0][i]) q.push(tr[0][i]);
     while(q.size()){
-        int u=q.front();
-        q.pop();
+        int u=q.front(); q.pop();
         FOR(i,0,25){
             if(tr[u][i]){
                 fail[tr[u][i]]=tr[fail[u]][i];//fail数组：同一字符可以匹配的其他位置
@@ -69,3 +82,84 @@ int main(){
     return 0;
 }
 ```
+
+### AcWing 1282. 搜索关键词
+
+#### 题目描述
+
+![image-20220728153619138](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-073619.png)
+
+![image-20220728153631110](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-073632.png)
+
+#### 代码
+
+```cpp
+#include <bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define mem(a) memset((a),0,sizeof(a))
+using namespace std;
+
+const int N = 1e4+7, S = 51, M = 1e6+7;
+
+int n;
+int tr[N * S][26], cnt[N * S], idx;
+int ne[N * S];
+
+void insert(string str){
+    int p = 0;
+    FOR(i,0,str.size()-1){
+        int t = str[i] - 'a';
+        if (!tr[p][t]) tr[p][t] = ++ idx;
+        p = tr[p][t];
+    }
+    cnt[p] ++ ;
+}
+
+void build(){
+    queue<int> q;
+    FOR(i,0,25)
+        if (tr[0][i]) q.push(tr[0][i]);
+    while (!q.empty()){
+        int t = q.front(); q.pop();
+        FOR(i,0,25){
+            int p = tr[t][i];
+            if (!p) tr[t][i] = tr[ne[t]][i];// 路经压缩
+            else{
+                ne[p] = tr[ne[t]][i];
+                q.push(p);
+            }
+        }
+    }
+}
+
+int main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while (T -- ){
+        mem(tr),mem(cnt),mem(ne);
+        idx = 0;
+        string str;
+        cin>>n;
+        FOR(i,0,n-1){
+            cin>>str;
+            insert(str);
+        }
+        build();
+        cin>>str;
+        int res = 0;
+        for (int i = 0, j = 0; i<str.size(); i ++ ){//kmp匹配
+            int t = str[i] - 'a';
+            j = tr[j][t];
+            int p = j;
+            while (p and cnt[p]!=-1){
+                res += cnt[p];
+                cnt[p] = -1;
+                p = ne[p];
+            }
+        }
+        cout<<res<<'\n';
+    }
+    return 0;
+}
+```
+

@@ -49,6 +49,12 @@ int main(){
 
 #### 代码
 
+![image-20220728150437242](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-070437.png)
+
+非平凡: 不能是自己, 至少要少一个字符.
+
+找与后缀相等的最大前缀.
+
 ```cpp
 #include <iostream>
 
