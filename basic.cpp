@@ -54,9 +54,9 @@ const int INF=INT_MAX;
 const long long INF=LLONG_MAX;
 
 /*----------------------------------------*/
-struct node{
+struct RG{
     int l,r;
-    bool operator<(const node &y)const{
+    bool operator<(const RG &y)const{
         return r<y.r;
     }
 };
