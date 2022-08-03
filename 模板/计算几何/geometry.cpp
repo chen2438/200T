@@ -19,6 +19,7 @@ namespace geometry{
         PT operator-(const PT &B){return {x-B.x,y-B.y};}
         PT operator*(const double k){return {x*k,y*k};}
         friend PT operator*(const double k,PT T){return T*k;}
+        PT operator/(const double k){return {x/k,y/k};}
         bool operator==(const PT &Y){
             return (!sign(x-Y.x))&&(!sign(y-Y.y));}
         bool operator!=(const PT &Y){
@@ -38,29 +39,31 @@ namespace geometry{
     };
      
     struct CI{
-        double x,y,r;
-        CI() {x=0,y=0,r=0;}
-        CI(double a,double b,double c) {x=a,y=b,r=c;}
+        PT p;
+        double r;
+        CI() {p={0,0},r=0;}
+        CI(PT a,double b) {p=a,r=b;}
+        CI(double a,double b,double c){p={a,b},r=c;}
         friend ostream &operator<<(ostream &o,const CI &X){
-            o<<X.x<<' '<<X.y<<' '<<X.r;return o;}
+            o<<X.p<<' '<<X.r;return o;}
         friend istream &operator>>(istream &i,CI &X){ 
-            i>>X.x>>X.y>>X.r;return i;}
-        CI operator-() {return CI(-x,-y,-r);}
-        CI operator+(const CI &B){return {x+B.x,y+B.y,r+B.r};}
-        CI operator-(const CI &B){return {x-B.x,y-B.y,r-B.r};}
-        CI operator*(const double k){return {x*k,y*k,r*k};}
+            i>>X.p>>X.r;return i;}
+        CI operator-() {return CI(-p,-r);}
+        CI operator+(const CI &B){return {p+B.p,r+B.r};}
+        CI operator-(const CI &B){return {p-B.p,r-B.r};}
+        CI operator*(const double k){return {p*k,r*k};}
         friend CI operator*(const double k,CI T){return T*k;}
         bool operator==(const CI &Y){
-            return (!sign(x-Y.x))&&(!sign(y-Y.y))&&(!sign(r-Y.r));}
+            return (p==Y.p)&&(!sign(r-Y.r));}
         bool operator!=(const CI &Y){
-            return sign(x-Y.x)||sign(y-Y.y)||sign(r-Y.r);}
+            return (p!=Y.p)||sign(r-Y.r);}
         double area(){return PI*r*r;}
         double girth(){return 2*PI*r;}
     };
      
     namespace geofunc{
     double len(PT a,PT b){return (a-b).size();}
-    double cdis(CI a,CI b){return len({a.x,a.y},{b.x,b.y});}
+    double cdis(CI a,CI b){return len(a.p,b.p);}
     double dot(PT a, PT b) {return a.x*b.x+a.y*b.y;}
     double cross(PT a,PT b){return a.x*b.y-b.x*a.y;}
     //B在A的逆时针方向为正
@@ -95,7 +98,7 @@ namespace geometry{
         return p + v * t;
     }
     PT line_x_line(LI l1,LI l2){
-        return line_x_line(l1.st,l2.st,l1.ed-l1.st,l2.ed-l2.st);
+        return line_x_line(l1.st,l1.ed-l1.st,l2.st,l2.ed-l2.st);
     }
     double dist2line(PT p,PT l,PT r){
         //点p到直线(l->r)的距离
@@ -135,6 +138,20 @@ namespace geometry{
     bool sgt_x_line(PT a,PT b,PT l,PT r){
         //判断线段(a->b)与直线(l->rr)是否相交
         return sign(area(a,l,r))*sign(area(b,l,r)) <= 0;
+    }
+    LI get_mid_line(PT a,PT b){
+        //中垂线
+        PT st=(a+b)/2;
+        PT dl=(b-a).rotate(PI/2);
+        return {st,st+dl};
+    }
+    CI get_circle(PT a,PT b,PT c){
+        //三点构成圆
+        LI l1=get_mid_line(a,b);
+        LI l2=get_mid_line(a,c);
+        PT p=line_x_line(l1,l2);
+        double r=len(p,a);
+        return {p,r};
     }
     double polygon_area(PT p[], int n){
         //求多边形面积（不一定是凸多边形）
