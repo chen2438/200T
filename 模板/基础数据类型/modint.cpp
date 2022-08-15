@@ -1,3 +1,13 @@
+const int MOD=998244353;
+long long poww(long long x,int y){
+	long long ret=1;
+	while(y){
+		if(y&1)ret*=x,ret%=MOD;
+		x*=x,x%=MOD;
+		y>>=1;
+	}
+	return ret;
+}
 struct modint{
 	int v;
 	modint(){v=0;}
