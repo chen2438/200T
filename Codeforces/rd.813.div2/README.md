@@ -14,7 +14,7 @@
 
 ### 题意
 
-![image-20220814214933319](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208142149357.png)
+![image-20220814214933319](https://media.opennet.top/i/2023/01/09/63bb969d68198.png)
 
 ### 代码
 
@@ -55,11 +55,11 @@ signed main(){
 
 ### 题意
 
-![image-20220814215056446](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208142150477.png)
+![image-20220814215056446](https://media.opennet.top/i/2023/01/09/63bb969dd387e.png)
 
 ### 思路
 
-![image-20220814215117136](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208142151163.png)
+![image-20220814215117136](https://media.opennet.top/i/2023/01/09/63bb969e5e69a.png)
 
 ### 代码
 
@@ -109,7 +109,7 @@ signed main(){
 
 ### 题意
 
-![image-20220814215315177](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208142153216.png)
+![image-20220814215315177](https://media.opennet.top/i/2023/01/09/63bb969f0816a.png)
 
 ### 思路
 
@@ -117,7 +117,7 @@ signed main(){
 
 0的前面必须为0。最后再从后往前扫检查后缀有序。
 
-![image-20220814215532362](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208142155406.png)
+![image-20220814215532362](https://media.opennet.top/i/2023/01/09/63bb969faf817.png)
 
 ### 代码
 

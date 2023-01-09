@@ -1,8 +1,8 @@
 ## AcWing 1097. 池塘计数
 
-![image-20220515123433400](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-044236.png)
+![image-20220515123433400](https://media.opennet.top/i/2023/01/09/63bb96ee863fc.png)
 
-![image-20220515124312912](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-044312.png)
+![image-20220515124312912](https://media.opennet.top/i/2023/01/09/63bb96ef6dc71.png)
 
 ```cpp
 #include<bits/stdc++.h>

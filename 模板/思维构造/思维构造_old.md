@@ -1,0 +1,748 @@
+### AcWing 4489. 最长子序列
+
+![image-20220809100202863](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091002913.png)
+
+```cpp
+//贪心, 双指针
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 200010;
+
+int n;
+int w[N];
+
+int main(){
+    scanf("%d", &n);
+    for (int i = 0; i < n; i ++ ) scanf("%d", &w[i]);
+    int res = 0;
+    for (int i = 0; i < n; i ++ ){
+        int j = i + 1;
+        while (j < n && w[j] <= w[j - 1] * 2) j ++ ;
+        res = max(res, j - i);
+        i = j - 1;
+    }
+    printf("%d\n", res);
+    return 0;
+}
+```
+
+### AcWing 4492. 减法操作
+
+![image-20220809100300582](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091003610.png)
+
+```cpp
+//偶数的最小质因子是2,奇数减掉奇数的最小质因子是偶数
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+typedef long long LL;
+
+int main(){
+    LL n;
+    cin >> n;
+    LL res = 0;
+    if (n % 2){
+        for (int i = 2; i <= n / i; i ++ )
+            if (n % i == 0){
+                n -= i;
+                res ++ ;
+                break;
+            }
+        if (n % 2) res ++, n = 0;
+    }
+    res += n / 2;
+    cout << res << endl;
+    return 0;
+}
+```
+
+### AcWing 4505. 最大子集
+
+![image-20220809100414910](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091004941.png)
+
+```cpp
+//手写哈希表; 子集长度最多为3
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 200010, M = 1999997, INF = 0x3f3f3f3f;
+
+int n;
+int q[N], ha[M];
+
+int find(int x){
+    int t = (x % M + M) % M;
+    while (ha[t] != INF && ha[t] != x)
+        if ( ++ t == M) t = 0;
+    return t;
+}
+
+int main(){
+    scanf("%d", &n);
+    for (int i = 0; i < n; i ++ ) scanf("%d", &q[i]);
+    sort(q, q + n);
+    memset(ha, 0x3f, sizeof ha);
+    int res[3], s[3];
+    int rt = 0, st = 0;
+    for (int i = 0; i < n; i ++ ){
+        for (int j = 0; j <= 30; j ++ ){
+            int d = 1 << j;
+            s[0] = q[i], st = 1;
+            for (int k = 1; k <= 2; k ++ ){
+                int x = q[i] - d * k;
+                if (ha[find(x)] == INF) break;
+                s[st ++ ] = x;
+            }
+            if (rt < st){
+                rt = st;
+                memcpy(res, s, sizeof s);
+                if (rt == 3) break;
+            }
+        }
+        if (rt == 3) break;
+        ha[find(q[i])] = q[i];
+    }
+    printf("%d\n", rt);
+    for (int i = 0; i < rt; i ++ )
+        printf("%d ", res[i]);
+    return 0;
+}
+```
+
+### AcWing 4504. 字符串消除
+
+![image-20220809100448656](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091004690.png)
+
+```cpp
+//可以证明，任意删除，能删就删，可以到相同的最终状态
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    string str, stk;
+    cin >> str;
+    int res = 0;
+    for (auto c: str)
+        if (stk.back() == c){
+            stk.pop_back();
+            res ++ ;
+        }
+        else stk += c;
+    if (res % 2) puts("Yes");
+    else puts("No");
+    return 0;
+}
+```
+
+### Constructive Problems Never Die
+
+https://ac.nowcoder.com/acm/contest/33192/C
+
+![image-20220809100802047](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091008088.png)
+
+```cpp
+void slove() {
+    cin >> n;
+    for (int i = 1; i <= n; i++)g[i].clear(), ans[i] = 0, vis[i] = 0;
+    for (int i = 1; i <= n; i++)cin >> a[i], g[a[i]].push_back(i);
+    vector<pair<int, int>>v;
+    for (int i = 1; i <= n; i++) {
+        if (g[i].size()) {
+            v.push_back({ i,*g[i].begin() });
+        }
+    }
+    if (v.size() == 1) {
+        cout << "NO" << endl;
+        return;
+    }
+    for (int i = 1; i < v.size(); i++) {
+        ans[v[i].second] = v[i - 1].first;
+        vis[v[i - 1].first] = 1;
+    }
+    ans[v.begin()->second] = v.back().first;
+    vis[v.back().first] = 1;
+    cout << "YES" << endl;
+    int id = 1;
+    for (int i = 1; i <= n; i++) {
+        if (ans[i] == 0) {
+            while (vis[id] == 1)id++;
+            ans[i] = id;
+            vis[id] = 1;
+        }
+    }
+    for (int i = 1; i <= n; i++)cout << ans[i] << " ";
+    cout << endl;
+}
+```
+
+### Candies
+
+https://ac.nowcoder.com/acm/contest/33192/F
+
+![image-20220809100929154](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091009191.png)
+
+```cpp
+//先拿一个栈进行从左往右的删除，再用双指针从两头扫，模拟环的删除
+
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+// #define int long long
+using namespace std;
+
+const int N = 2e5+7;
+
+void solve(){
+    int n,x;
+    vector<int> stk;
+    cin>>n>>x;
+    int ans=0;
+    FOR(i,1,n){
+        int a; cin>>a;
+        if(stk.empty()){stk.push_back(a);continue;}
+        int t=stk.back();
+        if(t==a or t+a==x){
+            stk.pop_back();
+            ans++;
+        }
+        else stk.push_back(a);
+    }
+    int l=0,r=stk.size()-1;
+    while(l<r){
+        if(stk[l]==stk[r] or stk[l]+stk[r]==x){
+            l++,r--;
+            ans++;
+        }
+        else break;
+    }
+    cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; //cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### D. The Enchanted Forest
+
+https://codeforces.com/contest/1688/problem/D
+
+**题意**
+
+![image-20220810223850139](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208102238182.png)
+
+**思路**
+
+![image-20220810223929091](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208102239148.png)
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+#define int long long
+using namespace std;
+
+const int N = 2e5+7, M=N*2;
+int a[N],sum[N];
+
+int get_sum(int l,int r){
+    return sum[r]-sum[l-1];
+}
+
+int cal(int st,int ed){
+    return (st+ed)*(ed-st+1)/2;
+}
+
+void solve(){
+    int n,k; cin>>n>>k;
+    FOR(i,1,n) cin>>a[i];
+    FOR(i,0,n) sum[i]=0;
+    FOR(i,1,n) sum[i]=sum[i-1]+a[i];
+    int ans=0;
+    if(k>n){
+        ans=get_sum(1,n);
+        ans+=(k-1)*n - n*(n-1)/2;
+    }
+    else{
+        FOR(i,1,n-k+1)
+            ans=max(ans,get_sum(i,i+k-1));
+        ans+=cal(1,k-1);
+    }
+    cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### D. Insert a Progression
+
+https://codeforces.com/contest/1671/problem/D
+
+**题意**
+
+![image-20220811203508567](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208112035619.png)
+
+**思路**
+
+![image-20220811203523494](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208112035543.png)
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+#define int long long
+using namespace std;
+
+const int N = 2e5+7;
+int a[N];
+
+void solve(){
+    int n,x; cin>>n>>x;
+    FOR(i,1,n) cin>>a[i];
+    int ma=0,mi=1e9,p1,p2;
+    FOR(i,1,n){
+        ma=max(ma,a[i]);
+        mi=min(mi,a[i]);
+    }
+    int ans=0;
+    FOR(i,1,n-1) ans+=abs(a[i]-a[i+1]);
+    if(ma<x) ans+=min(2*(x-ma),x-max(a[1],a[n]));
+    if(mi>1) ans+=min(2*(mi-1),min(a[1],a[n])-1);
+    cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### E. Matrix and Shifts
+
+https://codeforces.com/contest/1660/problem/E
+
+**题意**
+
+![image-20220812144709864](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-064709.png)
+
+**思路**
+
+![image-20220812144727581](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-064727.png)
+
+![image-20220812144747581](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-064748.png)
+
+![image-20220812144800318](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-064800.png)
+
+Trick: 从最终状态反推可能的初始状态.
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+// #define int long long
+using namespace std;
+
+const int N = 2e3+7;
+int a[N][N];
+int n;
+
+int go(int x,int y,int cnt){
+    x++,y++;
+    if(y==n+1) return cnt;
+    if(x==n+1) x=1;
+    if(a[x][y]) cnt++;
+    return go(x,y,cnt);
+}
+
+void solve(){
+    cin>>n;
+    int sum=0;
+    FOR(i,1,n){
+        FOR(j,1,n){
+            char c; cin>>c;
+            a[i][j]=(c=='1');
+            if(a[i][j]) sum++;
+        }
+    }
+    int cnt=0;
+    FOR(i,1,n){
+        if(a[i][1]) cnt=max(cnt,go(i,1,1));
+        else cnt=max(cnt,go(i,1,0));
+        if(cnt==n) break;
+    }
+    cout<<(sum-cnt)+(n-cnt)<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### D. Maximum Product Strikes Back
+
+https://codeforces.com/problemset/problem/1660/D
+
+**题意**
+
+![image-20220812152849555](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-072849.png)
+
+**思路**
+
+![image-20220812152908420](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-072908.png)
+
+![image-20220812152916874](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-072917.png)
+
+![image-20220812152923395](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-072923.png)
+
+![image-20220812152932431](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-072932.png)
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+// #define int long long
+using namespace std;
+
+const int N = 2e5+7;
+int a[N];
+
+struct node{
+    int l,r;
+};
+
+vector<node> v;
+
+void solve(){
+    v.clear();
+    int n; cin>>n;
+    FOR(i,1,n) cin>>a[i];
+    a[n+1]=0;
+    int l=1,r=1;
+    while(!a[l]) l++;
+    r=l;
+    while(r<=n+1){
+        if(!a[r]){
+            v.push_back({l,r-1});
+            l=r;
+            while(!a[l]) l++;
+            r=l;
+        }
+        else r++;
+    }
+    int max_cnt2=0;
+    node op;
+    if(v.empty()){cout<<n<<" "<<0<<endl;return;}
+    for(auto i:v){
+        l=i.l,r=i.r;
+        int cnt2=0,neg=0;
+        FOR(j,l,r){
+            if(abs(a[j])==2) cnt2++;
+            if(a[j]<0) neg++;
+        }
+        if(neg%2==0){
+            if(cnt2>max_cnt2){
+                max_cnt2=cnt2;
+                op={l-1,n-r};
+            }
+        }
+        else{
+            int neg_pos=0;
+            cnt2=0;
+            FOR(j,l,r){
+                if(!neg_pos and a[j]>0) continue;
+                if(!neg_pos and a[j]<0) {neg_pos=j;continue;}
+                if(abs(a[j])==2) cnt2++;
+            }
+            if(cnt2>max_cnt2){
+                max_cnt2=cnt2;
+                op={neg_pos,n-r};
+            }
+            neg_pos=0;
+            cnt2=0;
+            ROF(j,r,l){
+                if(!neg_pos and a[j]>0) continue;
+                if(!neg_pos and a[j]<0) {neg_pos=j;continue;}
+                if(abs(a[j])==2) cnt2++;
+            }
+            if(cnt2>max_cnt2){
+                max_cnt2=cnt2;
+                op={l-1,n-neg_pos+1};
+            }
+        }
+    }
+    if(max_cnt2==0){cout<<n<<" "<<0<<endl;return;}
+    cout<<op.l<<" "<<op.r<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### D1. 388535 (Easy Version)
+
+https://codeforces.com/problemset/problem/1658/D1
+
+**题意**
+
+![image-20220812164836445](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-084836.png)
+
+**思路**
+
+**性质: 在从 0 开始的连续的数中, 每一个二进制位上 0 的个数一定大于等于 1 的个数.**
+
+如果不满足这样的性质, 那么这个位一定被 XOR 操作改变了, x 的该位为1.
+
+![image-20220812165156236](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-12-085156.png)
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+// #define int long long
+using namespace std;
+
+const int N = 2e5+7;
+int a[N],cnt0[32],cnt1[32];
+
+void solve(){
+    mem(cnt0),mem(cnt1);
+    int l,r,n; cin>>l>>r;
+    n=r+1;
+    FOR(i,1,n) cin>>a[i];
+    FOR(i,1,n){
+        FOR(j,0,31){
+            if((a[i]>>j)&1) cnt1[j]++;
+            else cnt0[j]++;
+        }
+    }
+    int ans=0;
+    FOR(i,0,31) if(cnt1[i]>cnt0[i]) ans|=(1<<i);
+    cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### Longest Common Subsequence
+
+https://ac.nowcoder.com/acm/contest/33193/F
+
+**题意**
+
+给定两个串 s1, s2, 求最长公共子串.
+
+s1 和 s2 由  $f(x)=(ax^2+bx+c) \% p$ 产生, 每次产生数字后 x=f(x).
+
+**思路**
+
+发现 由s1和s2构成的串会有循环节(足够长的情况下).
+
+如果在产生数字的时候产生了之前出现过的数字,那么必定开始循环.
+
+最长公共子串一定恰好是连续的.
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+#define ll long long
+using namespace std;
+
+const int N = 1e6+7;
+int s1[N],s2[N];
+
+void solve(){
+    unordered_map<int,int> mp1,mp2;
+    int n,m;
+    ll p,x,a,b,c;
+    cin>>n>>m>>p>>x>>a>>b>>c;
+    int is_first=1,st_pos=0,st_val=0;
+    FOR(i,1,n){
+        s1[i]=x=(((a*x%p)*x%p+b*x%p)%p+c)%p;
+        if(!mp1[x]) mp1[x]=i;
+        else if(is_first){
+            if(mp1[x]) st_pos=mp1[x],is_first=0,st_val=x;
+        }
+    }
+    FOR(i,1,m){
+        s2[i]=x=(((a*x%p)*x%p+b*x%p)%p+c)%p;
+        if(!mp2[x]) mp2[x]=i;
+        if(is_first){
+            if(mp1[x]) st_pos=mp1[x],is_first=0,st_val=x;
+        }
+    }
+    int ans=0;
+    int st1=mp1[st_val],st2=mp2[st_val];
+    if(st1 and st2) ans=min(n-st1+1,m-st2+1);
+    st1=mp1[s2[1]],st2=1;
+    if(st1 and st2) ans=max(ans,min(n-st1+1,m-st2+1));
+    cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### C. Strange Test
+
+https://codeforces.com/problemset/problem/1632/C
+
+**题意**
+
+![image-20220816165720347](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-16-085720.png)
+
+**思路**
+
+![image-20220816165740292](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-16-085740.png)
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+// #define int long long
+using namespace std;
+
+const int N = 2e5+7;
+
+void solve(){
+    int a,b; cin>>a>>b;
+    int ans=1e9;
+    ans=min(ans,b-a);
+    FOR(i,a,b){
+        ans=min(ans,i-a+1+(i|b)-b);
+        //a:=i,消耗i-a
+        //a:=a|b,消耗1
+        //b:=a,消耗(a-b)
+    }
+    for(int i=b;;i++){
+        if((a|i)==i){
+            ans=min(ans,i-b+1);
+            break;
+        }
+    }
+    cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+
+### E. Price Maximization
+
+https://codeforces.com/problemset/problem/1690/E
+
+**题意**
+
+![image-20220817165428390](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-17-085429.png)
+
+**思路**
+
+![image-20220817165445120](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-08-17-085445.png)
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define debug(a) cout<<#a<<"="<<a<<endl
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+#define int long long
+using namespace std;
+
+const int N = 2e5+7;
+int a[N];
+
+void solve(){
+	int n,k; cin>>n>>k;
+	int ans=0;
+	FOR(i,1,n){
+	    cin>>a[i];
+        ans+=a[i]/k;
+        a[i]%=k;
+	}
+	sort(a+1,a+n+1);
+	for(int l=1,r=n;l<r;l++){
+        if(a[l]+a[r]>=k) ans++,r--;
+    }
+	cout<<ans<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+

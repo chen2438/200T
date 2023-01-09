@@ -1,0 +1,169 @@
+### 模板
+
+复杂度 $O(n\log n)$
+
+```cpp
+namespace convex{
+    const int CXN=4e5+7;
+    vector<PT> cxq;
+    int stk[CXN]={};
+    bool used[CXN]={};
+    double andrew(){
+        memset(stk,0,sizeof(stk));
+        memset(used,0,sizeof(used));
+        sort(cxq.begin(),cxq.end(), xless);
+        int top = 0;
+        FOR(i,0,cxq.size()-1){
+            while (top >= 2 && area(cxq[stk[top-1]],cxq[stk[top]],cxq[i]) <= 0){
+                // 凸包边界上的点即使被从栈中删掉，也不能删掉used上的标记
+                if (area(cxq[stk[top - 1]], cxq[stk[top]], cxq[i]) < 0)
+                    used[stk[top -- ]] = false;
+                else top -- ;
+            }
+            stk[ ++ top] = i;
+            used[i] = true;
+        }
+        used[0] = false;
+        ROF(i,cxq.size()-1,0){
+            if (used[i]) continue;
+            while (top >= 2 && area(cxq[stk[top - 1]], cxq[stk[top]], cxq[i]) <= 0)
+                top -- ;
+            stk[ ++ top] = i;
+        }
+        double girth = 0;//周长
+        int num=top-1;//点的个数
+        FOR(i,2,top) girth += (cxq[stk[i-1]]-cxq[stk[i]]).size();
+        return girth;
+    }
+}
+
+using namespace convex;
+```
+
+
+
+### AcWing 1401. 围住奶牛
+
+#### 题目描述
+
+![image-20220729212854168](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292128215.png)
+
+![image-20220729212859891](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292128915.png)
+
+#### 代码
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+using namespace std;
+
+namespace geometry{
+	略
+}
+
+using namespace geometry;
+
+const int N = 10010;
+
+int n;
+PT q[N];
+int stk[N];
+bool used[N];
+
+double andrew(){
+    sort(q, q + n, xless);
+    int top = 0;
+    FOR(i,0,n-1){
+        while (top >= 2 && area(q[stk[top-1]],q[stk[top]],q[i]) <= 0){
+            // 凸包边界上的点即使被从栈中删掉，也不能删掉used上的标记
+            if (area(q[stk[top - 1]], q[stk[top]], q[i]) < 0)
+                used[stk[top -- ]] = false;
+            else top -- ;
+        }
+        stk[ ++ top] = i;
+        used[i] = true;
+    }
+    used[0] = false;
+    ROF(i,n-1,0){
+        if (used[i]) continue;
+        while (top >= 2 && area(q[stk[top - 1]], q[stk[top]], q[i]) <= 0)
+            top -- ;
+        stk[ ++ top] = i;
+    }
+    double girth = 0;//周长
+    int num=top-1;//点的个数
+    FOR(i,2,top) girth += (q[stk[i-1]]-q[stk[i]]).size();
+    return girth;
+}
+
+int main(){
+    cin>>n;
+    FOR(i,0,n-1) cin>>q[i];
+    double res = andrew();
+    printf("%.2lf\n", res);
+    return 0;
+}
+
+```
+
+### AcWing 2935. 信用卡凸包
+
+#### 题目描述
+
+![image-20220729215147095](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292151135.png)
+
+![image-20220729215203203](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292152235.png)
+
+![image-20220729215219960](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292152999.png)
+
+![image-20220729215231273](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292152311.png)
+
+![image-20220729215246188](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207292152227.png)
+
+#### 代码
+
+所有圆弧加起来是一个整圆
+
+```cpp
+
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+using namespace std;
+
+namespace geometry{
+略
+}
+
+using namespace geometry;
+
+const int N = 40010;
+
+namespace convex{
+略
+}
+
+using namespace convex;
+
+int n;
+
+int main(){
+    cin>>n;
+    double a, b, r; cin>>a>>b>>r;
+    a = a / 2 - r, b = b / 2 - r;
+    int dx[] = {1, 1, -1, -1}, dy[] = {1, -1, -1, 1};
+    while (n -- ){
+        double x, y, z; cin>>x>>y>>z;
+        for (int i = 0; i < 4; i ++ ){
+            PT t = {dx[i] * b, dy[i] * a};
+            t=t.rotate(-z);
+            cxq.push_back({x + t.x, y + t.y}) ;
+        }
+    }
+    double res = andrew();
+    printf("%.2lf\n", res + 2 * PI * r);
+    return 0;
+}
+```
+

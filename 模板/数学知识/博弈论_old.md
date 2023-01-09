@@ -1,0 +1,190 @@
+### 公平组合游戏 ICG
+
+公平组合游戏（Impartial Game）的定义如下：
+
+1. 游戏有两个人参与，二者轮流做出决策，双方均知道游戏的完整信息；
+2. 任意一个游戏者在某一确定状态可以作出的决策集合只与当前的状态有关，而与游戏者无关；
+3. 游戏中的同一个状态不可能多次抵达，游戏以玩家无法行动为结束，且游戏一定会在有限步后以非平局结束。
+
+### 有向图游戏
+
+在一个有向无环图中，有一个唯一起点，上面有一个棋子，两个玩家轮流沿着有向边推动棋子，不能走的玩家判负。
+
+大部分的公平组合游戏都可以转换为有向图游戏。
+
+### SG 定理
+
+对于状态 $x$ 和它的所有 $k$ 个后继状态 $y_1, y_2, \ldots, y_k$，定义 $\operatorname{SG}$ 函数：
+
+$$
+\operatorname{SG}(x)=\operatorname{mex}\{\operatorname{SG}(y_1), \operatorname{SG}(y_2), \ldots, \operatorname{SG}(y_k)\}
+$$
+
+而对于由 $n$ 个有向图游戏组成的组合游戏，设它们的起点分别为 $s_1, s_2, \ldots, s_n$，则有定理：**当且仅当 $\operatorname{SG}(s_1) \oplus \operatorname{SG}(s_2) \oplus \ldots \oplus \operatorname{SG}(s_n) \neq 0$ 时，这个游戏是先手必胜的。**同时，这是这一个组合游戏的游戏状态 $x$ 的 SG 值。
+
+### AcWing 891. Nim游戏
+
+#### 题目描述
+
+![image-20220727161958507](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-27-081958.png)
+
+#### 代码
+
+结论: n 堆石子的异或和 = 0, 先手必败, 否则先手必胜.
+
+以小见大: n 堆石子全为 0, 异或为 0, 先手败.
+
+若异或和 != 0, 先手一定有方法在 1 次操作内将其变为 0.
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+const int N = 100010;
+
+int main(){
+    int n; cin>>n;
+    int res = 0;
+    while (n -- ){
+        int x; cin>>x;
+        res ^= x;
+    }
+    if (res) puts("Yes");
+    else puts("No");
+    return 0;
+}
+```
+
+### AcWing 892. 台阶-Nim游戏
+
+#### 题目描述
+
+![image-20220727164757501](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-27-084758.png)
+
+#### 代码
+
+结论: 若所有奇数级台阶上的棋子的异或和 = 0, 先手必败, 否则先手必胜.
+
+即把奇数级台阶看作经典 Nim 游戏
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+const int N = 100010;
+
+int main(){
+    int n; cin>>n;
+    int res = 0;
+    FOR(i,1,n){
+        int x; cin>>x;
+        if(i&1)res ^= x;
+    }
+    if (res) puts("Yes");
+    else puts("No");
+    return 0;
+}
+```
+
+### AcWing 893. 集合-Nim游戏
+
+#### 题目描述
+
+![image-20220727220020502](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207272200541.png)
+
+![image-20220727220033400](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207272200428.png)
+
+#### 代码
+
+记忆化搜索 sg 函数
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+const int N = 110, M = 10010;
+
+int n, m;
+int s[N], f[M];
+
+int sg(int x){//记忆化搜索sg函数
+    if (f[x] != -1) return f[x];
+    unordered_set<int> S;
+    FOR(i,0,m-1) if(x >= s[i]) S.insert(sg(x - s[i]));
+    for (int i = 0; ; i ++ )
+        if (!S.count(i)) return f[x] = i;//找最小的不存在的自然数
+}
+
+int main(){
+    cin >> m;
+    FOR(i,0,m-1) cin >> s[i];
+    cin >> n;
+    memset(f, -1, sizeof f);
+    int res = 0;
+    FOR(i,0,n-1){
+        int x; cin >> x;
+        res ^= sg(x);
+    }
+    if (res) puts("Yes");
+    else puts("No");
+    return 0;
+}
+```
+
+### AcWing 894. 拆分-Nim游戏
+
+#### 题目描述
+
+![image-20220727221835027](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207272218069.png)
+
+![image-20220727221842615](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207272218651.png)
+
+#### 代码
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+const int N = 110;
+
+int n;
+int f[N];
+
+int sg(int x){
+    if (f[x] != -1) return f[x];
+    unordered_set<int> S;
+    FOR(i,0,x-1)
+        FOR(j,0,i) //约定j<=i避免重复
+            S.insert(sg(i) ^ sg(j));
+    for (int i = 0;; i ++ )
+        if (!S.count(i)) return f[x] = i;
+}
+
+int main(){
+    cin >> n;
+    memset(f, -1, sizeof f);
+    int res = 0;
+    while (n -- ){
+        int x; cin >> x;
+        res ^= sg(x);
+    }
+    if (res) puts("Yes");
+    else puts("No");
+    return 0;
+}
+```
+
+### Great Party
+
+https://ac.nowcoder.com/acm/contest/33192/K
+
+#### 题目描述
+
+![image-20220809103201043](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091032082.png)
+
+![image-20220809103129193](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208091031230.png)
+

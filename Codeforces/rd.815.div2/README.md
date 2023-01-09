@@ -2,7 +2,7 @@
 
 ## 提交情况
 
-![image-20220820121001472](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201210520.png)
+![image-20220820121001472](https://media.opennet.top/i/2023/01/09/63bb9696c4d57.png)
 
 ## 参考
 
@@ -18,11 +18,11 @@
 
 ### 题意
 
-![image-20220820121117750](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201211776.png)
+![image-20220820121117750](https://media.opennet.top/i/2023/01/09/63bb96975ad71.png)
 
 ### 思路
 
-![image-20220820121134450](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201211479.png)
+![image-20220820121134450](https://media.opennet.top/i/2023/01/09/63bb9697e0d6e.png)
 
 ### 代码
 
@@ -63,15 +63,15 @@ signed main(){
 
 ### 题意
 
-![image-20220820121335115](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201213144.png)
+![image-20220820121335115](https://media.opennet.top/i/2023/01/09/63bb969857706.png)
 
 ### 思路
 
-![image-20220820121346509](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201213542.png)
+![image-20220820121346509](https://media.opennet.top/i/2023/01/09/63bb9698c3f6f.png)
 
 这道题我把自己绕进去了，chao！
 
-![image-20220820121607074](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201216107.png)
+![image-20220820121607074](https://media.opennet.top/i/2023/01/09/63bb96996e51d.png)
 
 ### 代码
 
@@ -112,11 +112,11 @@ signed main(){
 
 ### 题意
 
-![image-20220820121723731](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201217759.png)
+![image-20220820121723731](https://media.opennet.top/i/2023/01/09/63bb969a13461.png)
 
 ### 思路
 
-![image-20220820121745050](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201217082.png)
+![image-20220820121745050](https://media.opennet.top/i/2023/01/09/63bb969a9bbcc.png)
 
 ### 代码
 
@@ -184,15 +184,15 @@ signed main(){
 
 ### 题意
 
-![image-20220820122036398](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201220427.png)
+![image-20220820122036398](https://media.opennet.top/i/2023/01/09/63bb969b332f1.png)
 
 ### 思路
 
 注意 b 数组是 a 的下标序列，我读题的时候以为 b 是 a 的子序列......
 
-![image-20220820122255827](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201222858.png)
+![image-20220820122255827](https://media.opennet.top/i/2023/01/09/63bb969bb7c6c.png)
 
-![image-20220820122307130](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208201223162.png)
+![image-20220820122307130](https://media.opennet.top/i/2023/01/09/63bb969c5af95.png)
 
 限制可以卡到 256 。 
 

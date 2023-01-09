@@ -4,7 +4,7 @@
 
 ## 提交情况
 
-![image-20220801215209435](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012152486.png)
+![image-20220801215209435](https://media.opennet.top/i/2023/01/09/63bb96a0e734f.png)
 
 ## 参考
 
@@ -20,7 +20,7 @@
 
 
 
-![image-20220801215334414](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012153441.png)
+![image-20220801215334414](https://media.opennet.top/i/2023/01/09/63bb96a1b22bb.png)
 
 ### 思路
 
@@ -77,11 +77,11 @@ signed main(){
 
 ### 题意
 
-![image-20220801215909297](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012159328.png)
+![image-20220801215909297](https://media.opennet.top/i/2023/01/09/63bb96a26bc31.png)
 
 ### 思路
 
-![image-20220801215932386](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012159411.png)
+![image-20220801215932386](https://media.opennet.top/i/2023/01/09/63bb96a3014c5.png)
 
 ### 代码
 
@@ -140,7 +140,7 @@ signed main(){
 
 ### 题意
 
-![image-20220801220126328](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012201362.png)
+![image-20220801220126328](https://media.opennet.top/i/2023/01/09/63bb96a38186d.png)
 
 ### 思路
 
@@ -210,11 +210,11 @@ signed main(){
 
 ### 题意
 
-![image-20220801220628564](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012206595.png)
+![image-20220801220628564](https://media.opennet.top/i/2023/01/09/63bb96a42e020.png)
 
 ### 思路
 
-![image-20220801220646662](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202208012206715.png)
+![image-20220801220646662](https://media.opennet.top/i/2023/01/09/63bb96a4ab730.png)
 
 ### 代码
 

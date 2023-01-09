@@ -1,0 +1,444 @@
+# 线段树
+## 单点修改 区间求和求最值
+```cpp
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 500010;
+
+int n, m;
+int w[N];
+struct Node
+{
+    int l, r;
+    int sum, max0;
+}tr[N * 4];
+
+void pushup(Node &u, Node &l, Node &r)
+{
+    u.sum = l.sum + r.sum;
+    u.max0 = max(l.max0, r.max0);
+    /*u.lmax = max(l.lmax, l.sum + r.lmax);
+    u.rmax = max(r.rmax, r.sum + l.rmax);
+    u.tmax = max(max(l.tmax, r.tmax), l.rmax + r.lmax);*/
+}
+
+void pushup(int u)
+{
+    pushup(tr[u], tr[u << 1], tr[u << 1 | 1]);
+}
+
+void build(int u, int l, int r)
+{
+    if (l == r) tr[u] = {l, r, w[r], w[r]};
+    else
+    {
+        tr[u] = {l, r};
+        int mid = (l + r) >> 1;
+        build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+        pushup(u);
+    }
+}
+
+void modify(int u, int x, int v)
+{
+    if (tr[u].l == x && tr[u].r == x) tr[u] = {x, x, v, v};
+    else
+    {
+        int mid = (tr[u].l + tr[u].r) >> 1;
+        if (x <= mid) modify(u << 1, x, v);
+        else modify(u << 1 | 1, x, v);
+        pushup(u);
+    }
+}
+
+Node query(int u, int l, int r)
+{
+    if (tr[u].l >= l && tr[u].r <= r) return tr[u];
+    else
+    {
+        int mid = (tr[u].l + tr[u].r) >> 1;
+        if (r <= mid) return query(u << 1, l, r);
+        else if (l > mid) return query(u << 1 | 1, l, r);
+        else
+        {
+            auto left = query(u << 1, l, r);
+            auto right = query(u << 1 | 1, l, r);
+            Node res;
+            pushup(res, left, right);
+            return res;
+        }
+    }
+}
+
+int main()
+{
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i ++ ) scanf("%d", &w[i]);
+    build(1, 1, n);
+
+    int k, x, y;
+    while (m -- )
+    {
+        scanf("%d%d%d", &k, &x, &y);
+        if (k == 1)
+        {
+            if (x > y) swap(x, y);
+            printf("sum=%d\n", query(1, x, y).sum);
+            printf("max=%d\n", query(1, x, y).max0);
+        }
+        else modify(1, x, y);
+    }
+
+    return 0;
+}
+```
+## 区间修改-区间求和
+```cpp
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+typedef long long LL;
+
+const int N = 100010;
+
+int n, m;
+int w[N];
+struct Node
+{
+    int l, r;
+    LL sum, add;
+}tr[N * 4];
+
+void pushup(int u)
+{
+    tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
+}
+
+void pushdown(int u)
+{
+    auto &root = tr[u], &left = tr[u << 1], &right = tr[u << 1 | 1];
+    if (root.add)
+    {
+        left.add += root.add, left.sum += (LL)(left.r - left.l + 1) * root.add;
+        right.add += root.add, right.sum += (LL)(right.r - right.l + 1) * root.add;
+        root.add = 0;
+    }
+}
+
+void build(int u, int l, int r)
+{
+    if (l == r) tr[u] = {l, r, w[r], 0};
+    else
+    {
+        tr[u] = {l, r};
+        int mid = l + r >> 1;
+        build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+        pushup(u);
+    }
+}
+
+void modify(int u, int l, int r, int d)
+{
+    if (tr[u].l >= l && tr[u].r <= r)
+    {
+        tr[u].sum += (LL)(tr[u].r - tr[u].l + 1) * d;
+        tr[u].add += d;
+    }
+    else    // 一定要分裂
+    {
+        pushdown(u);
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (l <= mid) modify(u << 1, l, r, d);
+        if (r > mid) modify(u << 1 | 1, l, r, d);
+        pushup(u);
+    }
+}
+
+LL query(int u, int l, int r)
+{
+    if (tr[u].l >= l && tr[u].r <= r) return tr[u].sum;
+
+    pushdown(u);
+    int mid = tr[u].l + tr[u].r >> 1;
+    LL sum = 0;
+    if (l <= mid) sum = query(u << 1, l, r);
+    if (r > mid) sum += query(u << 1 | 1, l, r);
+    return sum;
+}
+
+
+int main()
+{
+    scanf("%d%d", &n, &m);
+
+    for (int i = 1; i <= n; i ++ ) scanf("%d", &w[i]);
+
+    build(1, 1, n);
+
+    char op[2];
+    int l, r, d;
+
+    while (m -- )
+    {
+        scanf("%s%d%d", op, &l, &r);
+        if (*op == 'C')
+        {
+            scanf("%d", &d);
+            modify(1, l, r, d);
+        }
+        else printf("%lld\n", query(1, l, r));
+    }
+
+    return 0;
+}
+```
+## 区间修改 区间求和求最值 (未验证)
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+typedef long long LL;
+
+const int N = 1e5+7;
+
+int n, m;
+int w[N];
+struct Node
+{
+    int l, r;
+    LL sum,add;
+    LL max0;
+}tr[N * 4];
+
+void pushup(Node &u, Node &l, Node &r)
+{
+    u.sum = l.sum + r.sum;
+    u.max0 = max(l.max0, r.max0);
+}
+
+void pushup(int u)
+{
+    pushup(tr[u], tr[u << 1], tr[u << 1 | 1]);
+}
+void pushdown(int u)
+{
+    auto &root = tr[u], &left = tr[u << 1], &right = tr[u << 1 | 1];
+    if (root.add)
+    {
+        left.add += root.add;
+        left.sum += (LL)(left.r - left.l + 1) * root.add;
+        left.max0 += (LL)root.add;
+
+        right.add += root.add;
+        right.sum += (LL)(right.r - right.l + 1) * root.add;
+        right.max0 += (LL)root.add;
+        root.add = 0;
+    }
+}
+
+void build(int u, int l, int r)
+{
+    if (l == r) tr[u] = {l, r, w[r], 0, w[r]};
+    else
+    {
+        tr[u] = {l, r};
+        int mid = (l + r) >> 1;
+        build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+        pushup(u);
+    }
+}
+
+void modify(int u, int l, int r, int d)
+{
+    if (tr[u].l >= l && tr[u].r <= r)
+    {
+        tr[u].sum += (LL)(tr[u].r - tr[u].l + 1) * d;
+        tr[u].max0 += (LL)d;
+        tr[u].add += d;
+    }
+    else    // 一定要分裂
+    {
+        pushdown(u);
+        int mid = (tr[u].l + tr[u].r) >> 1;
+        if (l <= mid) modify(u << 1, l, r, d);
+        if (r > mid) modify(u << 1 | 1, l, r, d);
+        pushup(u);
+    }
+}
+
+Node query(int u, int l, int r)
+{
+    if (tr[u].l >= l && tr[u].r <= r) return tr[u];
+    else{
+        pushdown(u);
+        int mid = (tr[u].l + tr[u].r) >> 1;
+        if (r <= mid) return query(u << 1, l, r);
+        else if (l > mid) return query(u << 1 | 1, l, r);
+        else{
+            auto left = query(u << 1, l, r);
+            auto right = query(u << 1 | 1, l, r);
+            Node res;
+            pushup(res, left, right);
+            return res;
+        }
+    }
+}
+
+
+int main()
+{
+    cin.tie(0)->sync_with_stdio(0);
+    cin>>n>>m;
+
+    for (int i = 1; i <= n; i ++ ) cin>>w[i];
+
+    build(1, 1, n);
+
+    char op;
+    int l, r, d;
+
+    while (m -- )
+    {
+        cin>>op>>l>>r;
+        if (op == 'C')
+        {
+            cin>>d;
+            modify(1, l, r, d);
+        }
+        else printf("%lld\n", query(1, l, r).sum);
+    }
+
+    return 0;
+}
+/*
+10 10
+1 6 3 8 5 9 6 4 7 3
+*/
+```
+
+## 扫描线
+
+![image-20220504230125618](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-04-150125.png)
+
+![image-20220504230140572](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-04-150140.png)
+
+![image-20220504230158395](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-04-150158.png)
+
+```cpp
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+const int N = 100010;
+
+int n;
+struct Segment
+{
+    double x, y1, y2;
+    int k;
+    bool operator< (const Segment &t)const
+    {
+        return x < t.x;
+    }
+}seg[N * 2];
+struct Node
+{
+    int l, r;
+    int cnt;
+    double len;
+}tr[N * 8];
+
+vector<double> ys;
+
+int find(double y)
+{
+    return lower_bound(ys.begin(), ys.end(), y) - ys.begin();
+}
+
+void pushup(int u)
+{
+    if (tr[u].cnt) tr[u].len = ys[tr[u].r + 1] - ys[tr[u].l];
+    else if (tr[u].l != tr[u].r)
+    {
+        tr[u].len = tr[u << 1].len + tr[u << 1 | 1].len;
+    }
+    else tr[u].len = 0;
+}
+
+void build(int u, int l, int r)
+{
+    tr[u] = {l, r, 0, 0};
+    if (l != r)
+    {
+        int mid = l + r >> 1;
+        build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+    }
+}
+
+void modify(int u, int l, int r, int k)
+{
+    if (tr[u].l >= l && tr[u].r <= r)
+    {
+        tr[u].cnt += k;
+        pushup(u);
+    }
+    else
+    {
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (l <= mid) modify(u << 1, l, r, k);
+        if (r > mid) modify(u << 1 | 1, l, r, k);
+        pushup(u);
+    }
+}
+
+int main()
+{
+    int T = 1;
+    while (scanf("%d", &n), n)
+    {
+        ys.clear();
+        for (int i = 0, j = 0; i < n; i ++ )
+        {
+            double x1, y1, x2, y2;
+            scanf("%lf%lf%lf%lf", &x1, &y1, &x2, &y2);
+            seg[j ++ ] = {x1, y1, y2, 1};
+            seg[j ++ ] = {x2, y1, y2, -1};
+            ys.push_back(y1), ys.push_back(y2);
+        }
+
+        sort(ys.begin(), ys.end());
+        ys.erase(unique(ys.begin(), ys.end()), ys.end());
+
+        build(1, 0, ys.size() - 2);
+
+        sort(seg, seg + n * 2);
+
+        double res = 0;
+        for (int i = 0; i < n * 2; i ++ )
+        {
+            if (i > 0) res += tr[1].len * (seg[i].x - seg[i - 1].x);
+            modify(1, find(seg[i].y1), find(seg[i].y2) - 1, seg[i].k);
+        }
+
+        printf("Test case #%d\n", T ++ );
+        printf("Total explored area: %.2lf\n\n", res);
+    }
+
+    return 0;
+}
+```
+

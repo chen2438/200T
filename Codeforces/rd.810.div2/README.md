@@ -2,7 +2,7 @@
 
 ## 提交情况
 
-![image-20220725212531320](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252125366.png)
+![image-20220725212531320](https://media.opennet.top/i/2023/01/09/63bb9691a8198.png)
 
 ## 参考
 
@@ -18,7 +18,7 @@
 
 ### 题意
 
-![image-20220725213007331](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252130361.png)
+![image-20220725213007331](https://media.opennet.top/i/2023/01/09/63bb969240d7a.png)
 
 ### 思路
 
@@ -66,13 +66,13 @@ signed main(){
 
 ### 题意
 
-![image-20220725213059484](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252130515.png)
+![image-20220725213059484](https://media.opennet.top/i/2023/01/09/63bb9692cb34e.png)
 
 注意只有一对朋友会吃掉一个蛋糕，单个人不会吃蛋糕。
 
 ### 思路
 
-![image-20220725213226965](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252132002.png)
+![image-20220725213226965](https://media.opennet.top/i/2023/01/09/63bb96938f2ef.png)
 
 ### 代码
 
@@ -126,13 +126,13 @@ signed main(){
 
 ### 题意
 
-![image-20220725213401285](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252134315.png)
+![image-20220725213401285](https://media.opennet.top/i/2023/01/09/63bb969435019.png)
 
-![image-20220725213431857](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252134886.png)
+![image-20220725213431857](https://media.opennet.top/i/2023/01/09/63bb9694b8ae1.png)
 
 ### 思路
 
-![image-20220725213454697](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207252134727.png)
+![image-20220725213454697](https://media.opennet.top/i/2023/01/09/63bb969557296.png)
 
 ### 代码
 

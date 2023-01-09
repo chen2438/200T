@@ -1,8 +1,8 @@
 ## 173. 矩阵距离
 
-![image-20220519215845804](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/image-20220519215845804.png)
+![image-20220519215845804](https://media.opennet.top/i/2023/01/09/63bb96f0a69ad.png)
 
-![image-20220519220040432](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/image-20220519220040432.png)
+![image-20220519220040432](https://media.opennet.top/i/2023/01/09/63bb96f14493f.png)
 
 ```cpp
 #include<bits/stdc++.h>

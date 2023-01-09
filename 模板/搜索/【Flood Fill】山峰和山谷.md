@@ -1,14 +1,14 @@
 ## 1106. 山峰和山谷
 
-![image-20220515132305054](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-052305.png)
+![image-20220515132305054](https://media.opennet.top/i/2023/01/09/63bb96e87895f.png)
 
-![image-20220515132318553](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-052318.png)
+![image-20220515132318553](https://media.opennet.top/i/2023/01/09/63bb96e97ebab.png)
 
-![image-20220515132327362](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-052327.png)
+![image-20220515132327362](https://media.opennet.top/i/2023/01/09/63bb96eaa03b3.png)
 
-![image-20220515132337006](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-052337.png)
+![image-20220515132337006](https://media.opennet.top/i/2023/01/09/63bb96ebe890e.png)
 
-![image-20220515132344803](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-05-15-052345.png)
+![image-20220515132344803](https://media.opennet.top/i/2023/01/09/63bb96ecf0707.png)
 
 ```cpp
 #include<bits/stdc++.h>

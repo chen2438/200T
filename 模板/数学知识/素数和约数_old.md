@@ -1,0 +1,361 @@
+# 素数
+
+## 质数定理 (素数定理)
+
+设 $x \geq 1$, $π(x)$ 表示小于等于 $x$ 的素数的个数, 当 $x \rightarrow \infty$ 时，$π(x)\sim Li(x)$ 或 $π(x)\sim \frac{x}{\ln x}$. ( $Li(x)$ 为对数积分)
+
+即 $[1,n]$ 中有约 $\frac{n}{\ln n}$ 个质数.
+
+## 试除法判定素数
+
+### 代码
+
+```cpp
+bool is_prime(int x){
+    if (x < 2) return false;
+    for (int i = 2; i <= x / i; i ++ )//不要写 i*i, int 溢出风险
+        if (x % i == 0) return false;
+    return true;
+}
+```
+
+### 复杂度
+
+$O (\sqrt n)$, 恒定.
+
+## 分解质因数
+
+### 模板题
+
+[AcWing 867. 分解质因数](https://www.acwing.com/problem/content/869/)
+
+![image-20220707214620689](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207072146730.png)
+
+![image-20220707214632806](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207072146840.png)
+
+### 性质
+
+n 中最多只包含 1 个大于 $\sqrt n$ 的质因子. 因为如果有 2 个, 它们乘一起就大于 n 了. 
+
+### 代码
+
+```cpp
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+void divide(int x){
+    for (int i = 2; i <= x / i; i ++ )
+        if (x % i == 0){
+            int s = 0;
+            while (x % i == 0) x /= i, s ++ ;
+            cout << i << ' ' << s << endl;//i和s是n的2个不同的质因数
+        }
+    if (x > 1) cout << x << ' ' << 1 << endl;//单独判定大于sqrt(n)的质因数 
+    cout << endl;
+}
+
+int main(){
+    int n; cin >> n;
+    while (n -- ){
+        int x; cin >> x;
+        divide(x);
+    }
+    return 0;
+}
+```
+
+### 复杂度
+
+最坏 $O (\sqrt n)$, 最好 $O( \log n)$.
+
+## 埃氏筛法
+
+### 核心原理
+
+把每个数的所有倍数筛掉.
+
+### 代码
+
+```cpp
+const int N= 1e6+7;
+int prime[N], cnt;//prime[i]存第i个素数
+bool isprime[N];
+
+int get_prime(int n){
+    for (int i = 2; i <= n; i ++ ){
+        if (isprime[i]) continue;
+        prime[++cnt] = i;
+        for (int j = i + i; j <= n; j += i)
+            isprime[j] = true;
+    }
+    return cnt;//返回[1,n]中素数的个数
+}
+```
+
+### 复杂度
+
+$ O(n\log\log n) \approx O(n)$
+
+## 线性筛法
+
+### 核心原理
+
+n 只会被它的最小质因子筛掉.
+
+### 代码
+
+```cpp
+const int N= 1e6+7;
+int prime[N], cnt;//prime[i]存第i个素数
+bool notprime[N];
+
+int get_prime(int n){
+    notprime[0]=notprime[1]=1;
+    for (int i = 2; i <= n; i ++ ){
+        if (!notprime[i]) prime[ ++cnt ] = i;
+        for (int j = 1; prime[j] <= n / i; j ++ ){
+            notprime[prime[j] * i] = true;
+            if (i % prime[j] == 0) break;
+        }
+    }
+    return cnt;//返回[1,n]中素数的个数
+}
+```
+
+### 复杂度
+
+$ O(n) $
+
+在 1e7 的规模比埃氏筛法快 1 倍.
+
+## AcWing 4268. 性感素数
+
+https://www.acwing.com/problem/content/4271/
+
+![image-20220702120633169](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207021206226.png)
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+bool is_prime(int x){
+    if (x < 2) return false;
+    for (int i = 2; i <= x / i; i ++ )
+        if (x % i == 0) return false;
+    return true;
+}
+
+int main(){
+    int n;cin >> n;
+    for (int i = n - 6; i <= n + 6; i += 12)
+        if (is_prime(i) && is_prime(n)){
+            cout << "Yes" << endl;
+            cout << i << endl;
+            exit(0);
+        }
+    for (int i = n + 1; ; i ++ )
+        if ( is_prime(i) and (is_prime(i - 6) or is_prime(i + 6)) ){
+            cout << "No" << endl;
+            cout << i << endl;
+            exit(0);
+        }
+    return 0;
+}
+```
+
+
+
+## C. Bear and Prime Numbers
+
+https://codeforces.com/contest/385/problem/C
+
+### 标签
+
+素数, 条件欺骗
+
+### 题意
+
+给定长度为 n 的数组 x 和 m 次询问, 每次询问 l, r.
+
+~~定义 f(p) 是数组 x 内能被 p 整除的数的数量.~~
+
+定义 f(p) 是数组 x 内 p 的倍数的数量.
+
+定义 S(l, r) 是 [l, r] 内的素数.
+
+每次询问的答案是 $\sum_{p \in S(l,r)} f(p)$
+
+### 思路
+
+注意 n<=1e6, x[i]<=1e7, r<=2e9
+
+由于大于 1e7 的素数对答案没有贡献, 所以实际的数据范围只有 1e7.
+
+我们先用线性筛素数把 1 ~ 1e7 的素数筛出来.
+
+读入的 x[i] 用一个桶 buck[] 存, buck[x[i]] 存的是相同 x[i] 的数量.
+
+遍历筛出来的素数, 对于每个素数, 如果它的倍数在 x[i] 存在, 那么 xp[素数的值] += buck[素数的倍数].
+
+这样, xp[] 就存了每个素数对应的 f(p).
+
+最后把 xp[] 做一个前缀和, 方便区间求和, 输出答案.
+
+### 代码
+
+![image-20220707210657194](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207072108843.png)
+
+![image-20220707210705934](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202207072108839.png)
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+#define ll long long
+//const int N = 1e6+7;
+const int X = 1e7+7;
+
+int buck[X];
+int n,m;
+
+int prime[X], cnt;//prime[i]存第i个素数
+bool isprime[X];
+
+int get_prime(int n){
+    for (int i = 2; i <= n; i ++ ){
+        if (!isprime[i]) prime[ ++cnt ] = i;
+        for (int j = 1; prime[j] <= n / i; j ++ ){
+            isprime[prime[j] * i] = true;
+            if (i % prime[j] == 0) break;
+        }
+    }
+    return cnt;//返回[1,n]中素数的个数
+}
+
+int xp[X],pre[X];
+
+void init(){
+	FOR(i,1,cnt){
+		for(int j=prime[i];j<=1e7;j+=prime[i]){
+			xp[prime[i]]+=buck[j];
+		}
+	}
+	FOR(i,1,1e7) pre[i]=pre[i-1]+xp[i];
+}
+
+signed main(){
+	cin.tie(0)->sync_with_stdio(0);
+	cin>>n;
+	int x;
+	FOR(i,1,n) {cin>>x; buck[x]++;}
+	cin>>m;
+	get_prime(1e7);
+	init();
+	while(m--){
+		int l,r;cin>>l>>r;//l,r<=2e9
+		if(l>1e7) {cout<<0<<endl;continue;}
+		if(r>1e7) r=1e7;
+		cout<<pre[r]-pre[l-1]<<endl;
+	}
+	return 0;
+}
+```
+
+# 约数
+
+## 算数基本定理 (正整数的唯一分解定理)
+
+![image-20220708141312839](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-08-061312.png)
+
+## 试除法求约数
+
+### 代码
+
+```cpp
+vector<int> get_divisors(int x){
+    //返回一个包含x的所有约数的数组
+    vector<int> res;
+    for (int i = 1; i <= x / i; i ++ )
+        if (x % i == 0){
+            res.push_back(i);
+            if (i != x / i) res.push_back(x / i);
+        }
+    sort(res.begin(), res.end());
+    return res;
+}
+```
+
+### 复杂度
+
+$ O(\sqrt n) $
+
+## 约数个数
+
+### 性质
+
+![image-20220708141334488](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-08-061334.png)
+
+`int` 范围内约数最多的数, 大约有 1500 个约数.
+
+### 代码
+
+```cpp
+unordered_map<int, int> index_of_divisors(int x){
+    //返回一个包含x的"p[质因数]=质因数的指数"的哈希表
+    unordered_map<int, int> primes;
+    for (int i = 2; i <= x / i; i ++ )
+        while (x % i == 0){
+            x /= i;
+            primes[i] ++ ;
+        }
+    if (x > 1) primes[x] ++ ;
+    return primes;
+}
+
+ll num_of_divisors(unordered_map<int, int> primes){
+    //用哈希表求x的约数的个数
+    ll res = 1;
+    for (auto p : primes) res = res * (p.second + 1) % mod;
+    return res;
+}
+```
+
+
+
+## 约数之和
+
+### 性质
+
+![image-20220708141500400](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-08-061500.png)
+
+### 代码
+
+```cpp
+unordered_map<int, int> index_of_divisors(int x){
+    //返回一个包含x的"p[质因数]=质因数的指数"的哈希表
+    unordered_map<int, int> primes;
+    for (int i = 2; i <= x / i; i ++ )
+        while (x % i == 0){
+            x /= i;
+            primes[i] ++ ;
+        }
+    if (x > 1) primes[x] ++ ;
+    return primes;
+}
+
+ll sum_of_divisors(unordered_map<int, int> primes){
+    //用哈希表求x的约数之和
+    ll res = 1;
+    for (auto p : primes){
+        ll prime = p.first, index = p.second;
+        ll t = 1;
+        while (index -- ) t = (t * prime + 1) % mod;
+        res = res * t % mod;
+    }
+    return res;
+}
+```
+

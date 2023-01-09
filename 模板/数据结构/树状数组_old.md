@@ -1,0 +1,295 @@
+## 单点修改、区间查询
+
+[P3374 【模板】树状数组 1](https://www.luogu.com.cn/problem/P3374)
+
+![树状数组-结点覆盖的长度.png](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-03-021314.png)
+
+`c[x] (t[x])` 是以 x 结尾, 长度是 $2^k$ 的区间和.
+
+数组 c 的长度与数组 a 相同.
+
+`c[x] = sum( a[x-lowbit(x)+1 -> x] )`
+
+`c[x] = a[x]+c[x-1]+c[x-1-lowbit(x-1)] + ...` 
+
+树状数组有 O(n) 的建树方式, 但一般用不到, 因为不影响总体复杂度.
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+struct BIT{
+    #define MAXN (int)5e5+7
+    //const static int MAXN = 5e5+7;
+    int n, c[MAXN];
+    int lowbit(int x){
+        return x&-x;
+    }
+    void add(int x, int v){
+	    for(int i=x;i<=n;i+=lowbit(i)) c[i]+=v;
+	}
+    int sum(int x){
+	    int ans=0;
+	    for(int i=x;i;i-=lowbit(i)) ans+=c[i];
+	    return ans;
+	}
+    int SUM(int l,int r){
+        return sum(r)-sum(l-1);
+    }
+}tr;
+
+int main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int m,v;
+    cin>>tr.n>>m;
+    FOR(i,1,tr.n){
+        cin>>v;
+        tr.add(i,v);
+    }
+    while(m--){
+        int op;cin>>op;
+        if(op==1){
+            int x,k;cin>>x>>k;
+            tr.add(x,k);
+        }
+        else{
+            int l,r;cin>>l>>r;
+            cout<<tr.SUM(l,r)<<'\n';
+        }
+    }
+    return 0;
+}
+```
+
+## 区间修改、单点查询
+
+[P3368 【模板】树状数组 2](https://www.luogu.com.cn/problem/P3368)
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+struct BIT{
+    #define MAXN (int)5e5+7
+    //const static int MAXN = 5e5+7;
+    int n,c[MAXN];
+    int lowbit(int x){
+        return x&-x;
+    }
+    void add(int x,int v){
+        while(x<=n)
+            c[x]+=v,x+=lowbit(x);
+    }
+    int query(int x){
+        int ans=0;
+        while(x>=1)
+            ans+=c[x],x-=lowbit(x);
+        return ans;
+    }
+}tr;
+
+int main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int m;
+    cin>>tr.n>>m;
+    int past=0,now;
+    FOR(i,1,tr.n){
+        cin>>now;
+        tr.add(i,now-past);
+        past=now;
+    }
+    int op,l,r,k;
+    while(m--){
+        cin>>op;
+        if(op==1){
+            cin>>l>>r>>k;
+            tr.add(l,k);
+            tr.add(r+1,-k);
+        }
+        else{
+            cin>>l;
+            cout<<tr.query(l)<<'\n';
+        }
+    }
+    return 0;
+}
+```
+
+## 区间最值
+
+```cpp
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+using namespace std;
+
+struct BIT{
+    #define MAXN (int)2e7+7
+    #define INF (int)1e9+7
+    //const static int MAXN = 2e7+7;
+    //const static int INF = 1e9+7;
+    #define maxs(a,b) ((a)>(b)?(a):(b))
+    #define mins(a,b) ((a)<(b)?(a):(b))
+    struct node{
+        int val,i;//数值,原始下标
+        bool operator<(const node &x)const{
+            return val<x.val;
+        }
+        bool operator>(const node &x)const{
+            return val>x.val;
+        }
+    };
+    int n;
+    node v[MAXN],mi[MAXN],ma[MAXN];
+    int lowbit(int x){
+        return x&(-x);
+    }
+    void update(int x){
+        v[x].i=x;
+        while(x<=n){
+            mi[x]=ma[x]=v[x];
+            int lowx=lowbit(x);
+            for(int i=1;i<lowx;i<<=1){
+                mi[x]=mins(mi[x],mi[x-i]);
+                ma[x]=maxs(ma[x],ma[x-i]);
+            }
+            x+=lowbit(x);
+        }       
+    }
+    node qmin(int l,int r){//查最小值
+        node ans=(node){INF,0};
+        while(r>=l){
+            ans=min(ans,v[r]);
+            for(r=r-1;r-lowbit(r)>=l;r-=lowbit(r))
+                ans=min(ans,mi[r]);
+        }
+        return ans;
+    }
+    node qmax(int l,int r){//查最大值
+        node ans=(node){-INF,0};
+        while(r>=l){
+            ans=max(ans,v[r]);
+            for(r=r-1;r-lowbit(r)>=l;r-=lowbit(r))
+                ans=max(ans,ma[r]);
+        }
+        return ans;
+    }
+}tr;
+
+int main(){
+    //cin.tie(0)->sync_with_stdio(0);
+    int m;
+    cin>>tr.n>>m;
+    FOR(i,1,tr.n){
+        cin>>tr.v[i].val;
+        tr.update(i);
+    }
+    int x,y;
+    FOR(i,1,m){
+        cin>>x>>y;
+        cout<<"min.val="<<tr.qmin(x,y).val<<'\n';
+        cout<<"min.i="<<tr.qmin(x,y).i<<'\n';
+        cout<<"max.val="<<tr.qmax(x,y).val<<'\n';
+        cout<<"max.i="<<tr.qmax(x,y).i<<'\n';
+    }
+    return 0;
+}
+```
+
+## AcWing 241. 楼兰图腾
+
+https://www.acwing.com/problem/content/243/
+
+![image-20220627230801540](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202206272308592.png)
+
+![image-20220627230818415](https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202206272308459.png)
+
+### 题意
+
+给定 n 个点, 横坐标是 1 -> n, 纵坐标是 1 -> n 的 1 个排列.
+
+如果三个点 (i, y[i]), (j, y[j]), (k ,y[k]) 满足 1 ≤ i < j < k ≤ n 且 y[i] > y[j] < y[k], 则称这三个点构成 `V` 图腾;
+
+如果三个点 (i, y[i]), (j, y[j]), (k ,y[k]) 满足 1 ≤ i < j < k ≤ n 且 y[i] < y[j] > y[k], 则称这三个点构成 `∧` 图腾;
+
+统计 `V` 和 `∧` 的个数。
+
+### 思路
+
+Upd: 代码已更新, 思路略有不同.
+
+从左向右遍历 a[i], 使用树状数组统计在 i 位置之前比 a[i] **大** 的数的个数、比 a[i] **小** 的数的个数.
+
+每次统计时把 a[i] 加入到树状数组, 即 c[ a[i] ] += 1, 表示 a[i] 已经出现了.
+
+清空树状数组.
+
+从右向左遍历 a[i], 使用树状数组统计在 i 位置之后比 a[i] **大** 的数的个数、以及比 a[i] **小** 的数的个数.
+
+每次统计时把 a[i] 加入到树状数组.
+
+### 代码
+
+```cpp
+#pragma GCC optimize(3)
+#include<bits/stdc++.h>
+#define FOR(i,a,b) for(int i=(a);i<=(b);++i)
+#define ROF(i,a,b) for(int i=(a);i>=(b);--i)
+#define mem(a) memset((a),0,sizeof(a))
+#define endl '\n'
+#define int long long
+using namespace std;
+
+const int N = 2e5+7;
+int n;
+
+struct BIT{
+    int c[N];
+    int lowbit(int x){
+        return x&-x;
+    }
+    void add(int x, int v){
+	    for(int i=x;i<=n;i+=lowbit(i)) c[i]+=v;
+	}
+    int sum(int x){
+	    int ans=0;
+	    for(int i=x;i;i-=lowbit(i)) ans+=c[i];
+	    return ans;
+	}
+    int SUM(int l,int r){
+        return sum(r)-sum(l-1);
+    }
+}tr1,tr2;
+
+int a[N],pre_lt[N],pre_gt[N],suf_lt[N],suf_gt[N];
+
+void solve(){
+    cin>>n;
+    FOR(i,1,n) cin>>a[i];
+    FOR(i,1,n){
+        tr1.add(a[i], 1);
+        pre_lt[i] = tr1.SUM(1,a[i]-1);
+        pre_gt[i] = tr1.SUM(a[i]+1,n);
+    }
+    int res1 = 0, res2 = 0;
+    ROF(i,n,1){
+        tr2.add(a[i], 1);
+        suf_lt[i] = tr2.SUM(1,a[i]-1);
+        suf_gt[i] = tr2.SUM(a[i]+1,n);
+    }
+    FOR(i,1,n){
+        res1+=pre_gt[i]*suf_gt[i];
+        res2+=pre_lt[i]*suf_lt[i];
+    }
+    cout<<res1<<" "<<res2<<endl;
+}
+
+signed main(){
+    cin.tie(0)->sync_with_stdio(0);
+    int T=1; //cin>>T;
+    while(T--) solve();
+    return 0;
+}
+```
+

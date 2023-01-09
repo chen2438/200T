@@ -2,17 +2,17 @@
 
 ## 欧拉函数（复变函数）
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112610.jpg" alt="image-20220325224715174" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb97516b95c.jpg" alt="image-20220325224715174" style="zoom:50%;" />
 
 将这个式子展开
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112620.jpg" alt="image-20220325224807676" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb9751d8e50.jpg" alt="image-20220325224807676" style="zoom:50%;" />
 
 其中 $x$ 的次数，$\frac{3k^2-k}{2}$，为[广义五边形数](https://zh.wikipedia.org/wiki/廣義五邊形數)
 
 将得到的所有项按升幂排列，得到：
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112629.jpg" alt="image-20220325225231363" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb975259e45.jpg" alt="image-20220325225231363" style="zoom:50%;" />
 
 ## 分割函数
 
@@ -20,17 +20,17 @@
 
 欧拉函数的倒数是**划分数（分割函数）**的**生成函数**：
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112633.jpg" alt="image-20220325232231460" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb9752e00ca.jpg" alt="image-20220325232231460" style="zoom:50%;" />
 
 其中 $p(i)$ 为 $i$ 的分割函数
 
 有
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112638.jpg" alt="image-20220325234204155" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb975387503.jpg" alt="image-20220325234204155" style="zoom:50%;" />
 
 展开得到递推式
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112643.jpg" alt="image-20220325234251753" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb975430335.jpg" alt="image-20220325234251753" style="zoom:50%;" />
 
 ### 分割函数的代码实现 $O(n\sqrt{n})$
 
@@ -74,13 +74,13 @@ int main(){
 
 **五边形数**是能排成[五边形](https://zh.wikipedia.org/wiki/五邊形)的[多边形数](https://zh.wikipedia.org/wiki/多邊形數)。
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112647.jpg" alt="image-20220325230706580" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb9754c648f.jpg" alt="image-20220325230706580" style="zoom:50%;" />
 
-通项公式：<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112650.jpg" alt="image-20220325231030671" style="zoom:50%;" />
+通项公式：<img src="https://media.opennet.top/i/2023/01/09/63bb975553934.jpg" alt="image-20220325231030671" style="zoom:50%;" />
 
 **广义五边形数**的公式和五边形数相同，只是 n 可以为负数和零，**n 依序为0, 1, -1, 2, -2, 3, -3, 4...**，广义五边形数也可以用下式表示：
 
-<img src="http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-06-112659.jpg" alt="image-20220325231233477" style="zoom:50%;" />
+<img src="https://media.opennet.top/i/2023/01/09/63bb9755baf47.jpg" alt="image-20220325231233477" style="zoom:50%;" />
 
 **n 依序为0, 1, 2, 3, 4, 5, 6, 7, 8...**
 
