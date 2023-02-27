@@ -14,7 +14,11 @@ KMP: 对一个单链 trie (一维数组) 建立一个 next 数组
 
 #### 题目描述
 
-![image-20220420163623586](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/2022-04-20-083623.png)
+![image-20230227224323811](https://media.opennet.top/i/2023/02/27/63fcc18d98f6f.png)
+
+![image-20230227224339344](https://media.opennet.top/i/2023/02/27/63fcc19c762ba.png)
+
+![image-20230227224351795](https://media.opennet.top/i/2023/02/27/63fcc1a91006e.png)
 
 #### 代码
 
@@ -85,11 +89,11 @@ int main(){
 
 ### AcWing 1282. 搜索关键词
 
+https://www.acwing.com/problem/content/description/1284/
+
 #### 题目描述
 
-![image-20220728153619138](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-073619.png)
-
-![image-20220728153631110](http://nme-200t.oss-cn-hangzhou.aliyuncs.com/notes/2022-07-28-073632.png)
+![image-20230227224447600](https://media.opennet.top/i/2023/02/27/63fcc1e0d57e5.png)
 
 #### 代码
 
